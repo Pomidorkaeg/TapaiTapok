@@ -73,6 +73,11 @@
 
         // При загрузке страницы устанавливаем начальное значение счетчика
         document.getElementById('counter').innerText = count;
+
+        // Запрещаем приближение при двойном клике на странице (на мобильных устройствах)
+        document.body.addEventListener('dblclick', function(e) {
+            e.preventDefault();  // Останавливаем стандартное действие браузера (масштабирование)
+        });
     </script>
 
 </body>
