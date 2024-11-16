@@ -61,12 +61,18 @@
     </div>
 
     <script>
-        let count = 0;
+        // Инициализация счетчика, получая сохраненное значение из LocalStorage (если оно есть)
+        let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
+        // Функция обновления счетчика на странице и в LocalStorage
         function incrementCounter() {
-            count++;
-            document.getElementById('counter').innerText = count;
+            count++; // увеличиваем счетчик
+            document.getElementById('counter').innerText = count; // обновляем отображение на странице
+            localStorage.setItem('counter', count); // сохраняем новое значение в LocalStorage
         }
+
+        // При загрузке страницы устанавливаем начальное значение счетчика
+        document.getElementById('counter').innerText = count;
     </script>
 
 </body>
