@@ -5,64 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>Тапалка</title>
     <style>
+        /* Основные стили для тела страницы */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+            font-family: 'Arial', sans-serif;
             background-color: #ffeef2; /* Нежно-розовый фон */
             color: #6c4f73; /* Темно-розовый цвет для текста */
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+            box-sizing: border-box;
         }
 
+        /* Стиль заголовка */
         h1 {
-            color: #f2a7c1; /* Светло-розовый для заголовка */
             font-size: 36px;
+            color: #f2a7c1; /* Светло-розовый для заголовка */
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для заголовка */
         }
 
+        /* Стиль для счетчика */
         .counter {
-            font-size: 24px;
-            margin-top: 20px;
+            font-size: 28px;
             color: #d88ea1; /* Нежно-розовый для счетчика */
+            margin-top: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
-        .info {
-            margin-top: 40px;
-            font-size: 18px;
-            color: #f4c8d5; /* Светлый розовый для дополнительного текста */
-        }
-
+        /* Контейнер для тапка */
         .tap-container {
-            margin-top: 50px;
+            margin-top: 45px;
             cursor: pointer;
             display: inline-block;
-            transition: transform 0.1s ease;
+            transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+            /* Убираем фон контейнера */
+            background-color: transparent; 
+            /* Убираем тень для контейнера */
+            box-shadow: none; 
         }
 
+        /* Эффект увеличения тапка при наведении */
         .tap-container:hover {
-            transform: scale(1.1); /* Легкое увеличение тапка при наведении */
+            transform: scale(1.1); /* Легкое увеличение тапка */
         }
 
+        /* Изображение тапка */
         img {
-            width: 200px; /* Размер изображения тапка */
-            height: auto;
-            border-radius: 10px; /* Немного округлим углы изображения */
-            border: 5px solid #f2a7c1; /* Розовая рамка вокруг изображения */
+            width: 220px; /* Размер изображения тапка */
+            height: 220px; /* Сделаем изображение квадратным */
+            object-fit: cover; /* Обрезка изображения для поддержания пропорций */
+            border-radius: 0; /* Убираем округление углов */
+            border: none; /* Убираем рамку вокруг изображения */
+            transition: transform 0.3s ease; /* Плавное изменение при взаимодействии */
+        }
+
+        img:active {
+            transform: scale(0.95); /* Уменьшение при нажатии */
+        }
+
+        /* Кнопка сброса счетчика */
+        .reset-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #f2a7c1;
+            color: white;
+            font-size: 16px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .reset-button:hover {
+            background-color: #d88ea1;
         }
     </style>
 </head>
 <body>
 
     <h1>Тапалка</h1>
-    <p>Нажми на тапок и увеличь счетчик!</p>
 
+    <!-- Отображение счетчика -->
     <div class="counter">
         <p>Счетчик: <span id="counter">0</span></p>
     </div>
 
-    <!-- Изображение тапка -->
+    <!-- Контейнер с тапком -->
     <div class="tap-container" onclick="incrementCounter()">
-        <img src="C:\Users\WORKING\Downloads\kandinsky-download-1731862516810.png" alt="Тапок"> <!-- Замените ссылку на ваше изображение -->
+        <img src="C:\Users\WORKING\Downloads\kandinsky-download-1731868512955.png" alt="Тапок"> <!-- Замените ссылку на ваше изображение -->
     </div>
-
 
     <script>
         // Инициализация счетчика, получая сохраненное значение из LocalStorage (если оно есть)
