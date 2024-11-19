@@ -11,14 +11,14 @@
             background-color: #ffeef2; /* Нежно-розовый фон */
             color: #6c4f73; /* Темно-розовый цвет для текста */
             text-align: center;
-            padding: 50px;
+            padding: 20px;
             margin: 0;
             box-sizing: border-box;
         }
 
         /* Стиль заголовка */
         h1 {
-            font-size: 36px;
+            font-size: 28px;
             color: #f2a7c1; /* Светло-розовый для заголовка */
             font-weight: bold;
             margin-bottom: 20px;
@@ -27,46 +27,130 @@
 
         /* Стиль для счетчика */
         .counter {
-            font-size: 28px;
+            font-size: 24px;
             color: #d88ea1; /* Нежно-розовый для счетчика */
-            margin-top: 30px;
+            margin-top: 20px;
             font-weight: bold;
             letter-spacing: 1px;
         }
 
         /* Контейнер для тапка */
         .tap-container {
-            margin-top: 45px;
+            margin-top: 30px;
             cursor: pointer;
             display: inline-block;
             transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
-            /* Убираем фон контейнера */
             background-color: transparent; 
-            /* Убираем тень для контейнера */
             box-shadow: none; 
         }
 
         /* Эффект увеличения тапка при наведении */
         .tap-container:hover {
-            transform: scale(1.3); /* Легкое увеличение тапка */
+            transform: scale(1.2); /* Легкое увеличение тапка */
         }
 
         /* Изображение тапка */
         img {
-            width: 220px; /* Размер изображения тапка */
-            height: 220px; /* Сделаем изображение квадратным */
+            width: 150px; /* Размер изображения тапка */
+            height: 150px; /* Сделаем изображение квадратным */
             object-fit: cover; /* Обрезка изображения для поддержания пропорций */
-            border-radius: 100; /* Убираем округление углов */
+            border-radius: 10%; /* Округлые края */
             border: none; /* Убираем рамку вокруг изображения */
             transition: transform 0.4s ease; /* Плавное изменение при взаимодействии */
         }
 
         img:active {
-            transform: scale(0.93); /* Уменьшение при нажатии */
+            transform: scale(0.95); /* Уменьшение при нажатии */
         }
 
-        .reset-button:hover {
-            background-color: #d88ea1;
+        /* Стили для конвертера и кнопки */
+        .converter {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #d88ea1;
+        }
+
+        .converter span {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        /* Стиль для кнопки вывода */
+        .output-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #f2a7c1; /* Нежно-розовый цвет фона */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .output-button:hover {
+            background-color: #e0a0b2; /* Более светлый оттенок розового при наведении */
+        }
+
+        /* Стиль нижней строки с кнопками */
+        .bottom-bar {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 16px;
+            color: #6c4f73;
+            flex-wrap: wrap;
+        }
+
+        .bottom-bar a {
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            color: #f2a7c1; /* Нежно-розовый цвет текста */
+            transition: color 0.3s ease;
+        }
+
+        .bottom-bar a:hover {
+            color: #e0a0b2; /* Светлый розовый цвет текста при наведении */
+        }
+
+        /* Стиль для формы промокода */
+        .promo-code-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .promo-code-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #6c4f73;
+            border-radius: 5px;
+        }
+
+        /* Мобильные стили */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .counter {
+                font-size: 20px;
+            }
+
+            img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .output-button {
+                padding: 8px 16px;
+                font-size: 16px;
+            }
+
+            .bottom-bar {
+                gap: 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -81,7 +165,33 @@
 
     <!-- Контейнер с тапком -->
     <div class="tap-container" onclick="incrementCounter()">
-        <img src="https://github.com/Pomidorkaeg/TapaiTapok/blob/main/kandinsky-download-1731936884798.png?raw=true" alt="Тапок"> <!-- Прямое изображение с Google Drive -->
+        <img src="https://github.com/Pomidorkaeg/TapaiTapok/blob/main/kandinsky-download-1731936884798.png?raw=true" alt="Тапок">
+    </div>
+
+    <!-- Конвертер (с обновленным расчетом: 100 нажатий = 1 рубль) -->
+    <div class="converter">
+        <span id="ton-counter">0</span> рублей
+    </div>
+
+    <!-- Строка с кнопками внизу -->
+    <div class="bottom-bar">
+        <a href="javascript:void(0)" onclick="showOutputScreen()">Вывод</a>
+        <a href="javascript:void(0)" onclick="showPromoCodeScreen()">Промокод</a>
+        <a href="javascript:void(0)" onclick="goHome()">Главная</a>
+    </div>
+
+    <!-- Форма для ввода промокода -->
+    <div class="promo-code-container" id="promo-code-container">
+        <input type="text" id="promo-code" placeholder="Введите промокод" />
+    </div>
+
+    <!-- Страница с выводом -->
+    <div class="output-page" id="output-page" style="display:none;">
+        <h2>Вывод средств</h2>
+        <div class="converter">
+            <p>Вы натапали: <span id="output-ton-counter">0</span> рублей</p>
+        </div>
+        <button class="output-button" onclick="showOutput()">Вывести</button>
     </div>
 
     <script>
@@ -93,10 +203,46 @@
             count++; // увеличиваем счетчик
             document.getElementById('counter').innerText = count; // обновляем отображение на странице
             localStorage.setItem('counter', count); // сохраняем новое значение в LocalStorage
-        }     
+            updateTonCounter(); // Обновляем конвертированный результат
+        }
+
+        // Функция для обновления значения конвертированного счетчика (100 нажатий = 1 рубль)
+        function updateTonCounter() {
+            const rubles = (count / 100).toFixed(2); // Переводим количество нажатий в рубли (100 нажатий = 1 рубль)
+            document.getElementById('ton-counter').innerText = rubles;
+            document.getElementById('output-ton-counter').innerText = rubles; // Обновляем сумму на странице с выводом
+        }
+
+        // Функция для вывода результата
+        function showOutput() {
+            const rubles = (count / 100).toFixed(2); // Переводим в рубли
+            alert(`Вы сделали ${count} нажатий, что соответствует ${rubles} рублям.`);
+        }
+
+        // Функция для отображения экрана с выводом
+        function showOutputScreen() {
+            document.querySelector('.converter').style.display = 'none'; // Скрываем блок с конвертированным результатом
+            document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
+            document.getElementById('output-page').style.display = 'block'; // Показываем страницу с выводом
+        }
+
+        // Функция для отображения экрана с промокодом
+        function showPromoCodeScreen() {
+            document.querySelector('.converter').style.display = 'none'; // Скрываем блок с выводом
+            document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму для промокода
+            document.getElementById('output-page').style.display = 'none'; // Скрываем страницу с выводом
+        }
+
+        // Функция для возврата на главный экран
+        function goHome() {
+            document.querySelector('.converter').style.display = 'block'; // Показываем блок с конвертированным результатом
+            document.getElementById('promo-code-container').style.display = 'none'; // Скрываем промокод
+            document.getElementById('output-page').style.display = 'none'; // Скрываем страницу с выводом
+        }
 
         // При загрузке страницы устанавливаем начальное значение счетчика
         document.getElementById('counter').innerText = count;
+        updateTonCounter(); // Обновляем значение конвертированного счетчика
 
         // Запрещаем приближение при двойном клике на странице (на мобильных устройствах)
         document.body.addEventListener('dblclick', function(e) {
