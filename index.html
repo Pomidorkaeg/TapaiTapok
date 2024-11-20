@@ -168,7 +168,7 @@
         <img src="https://github.com/Pomidorkaeg/TapaiTapok/blob/main/kandinsky-download-1731936884798.png?raw=true" alt="Тапок">
     </div>
 
-    <!-- Конвертер (с обновленным расчетом: 100 нажатий = 1 рубль) -->
+    <!-- Конвертер -->
     <div class="converter">
         <span id="ton-counter">0</span> рублей
     </div>
@@ -191,62 +191,63 @@
         <div class="converter">
             <p>Вы натапали: <span id="output-ton-counter">0</span> рублей</p>
         </div>
-        <button class="output-button" onclick="showOutput()">Вывести</button>
+        <button class="output-button" onclick="showConfirmation()">Вывести</button>
+    </div>
+
+    <!-- Ссылки для подтверждения -->
+    <div id="confirmation" style="display:none; text-align:center;">
+        <p>Вы уверены, что хотите перевести средства?</p>
+        <button class="output-button" onclick="confirmTransfer()">Подтвердить перевод</button>
     </div>
 
     <script>
-        // Инициализация счетчика, получая сохраненное значение из LocalStorage (если оно есть)
         let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
-        // Функция обновления счетчика на странице и в LocalStorage
         function incrementCounter() {
             count++; // увеличиваем счетчик
-            document.getElementById('counter').innerText = count; // обновляем отображение на странице
-            localStorage.setItem('counter', count); // сохраняем новое значение в LocalStorage
-            updateTonCounter(); // Обновляем конвертированный результат
+            document.getElementById('counter').innerText = count;
+            localStorage.setItem('counter', count);
+            updateTonCounter();
         }
 
-        // Функция для обновления значения конвертированного счетчика (100 нажатий = 1 рубль)
         function updateTonCounter() {
-            const rubles = (count / 100).toFixed(2); // Переводим количество нажатий в рубли (100 нажатий = 1 рубль)
+            const rubles = (count / 100).toFixed(2);
             document.getElementById('ton-counter').innerText = rubles;
-            document.getElementById('output-ton-counter').innerText = rubles; // Обновляем сумму на странице с выводом
+            document.getElementById('output-ton-counter').innerText = rubles;
         }
 
-        // Функция для вывода результата
-        function showOutput() {
-            const rubles = (count / 100).toFixed(2); // Переводим в рубли
-            alert(`Вы сделали ${count} нажатий, что соответствует ${rubles} рублям.`);
-        }
-
-        // Функция для отображения экрана с выводом
         function showOutputScreen() {
-            document.querySelector('.converter').style.display = 'none'; // Скрываем блок с конвертированным результатом
-            document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
-            document.getElementById('output-page').style.display = 'block'; // Показываем страницу с выводом
+            document.querySelector('.converter').style.display = 'none';
+            document.getElementById('promo-code-container').style.display = 'none';
+            document.getElementById('output-page').style.display = 'block';
         }
 
-        // Функция для отображения экрана с промокодом
         function showPromoCodeScreen() {
-            document.querySelector('.converter').style.display = 'none'; // Скрываем блок с выводом
-            document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму для промокода
-            document.getElementById('output-page').style.display = 'none'; // Скрываем страницу с выводом
+            document.querySelector('.converter').style.display = 'none';
+            document.getElementById('promo-code-container').style.display = 'block';
+            document.getElementById('output-page').style.display = 'none';
         }
 
-        // Функция для возврата на главный экран
         function goHome() {
-            document.querySelector('.converter').style.display = 'block'; // Показываем блок с конвертированным результатом
-            document.getElementById('promo-code-container').style.display = 'none'; // Скрываем промокод
-            document.getElementById('output-page').style.display = 'none'; // Скрываем страницу с выводом
+            document.querySelector('.converter').style.display = 'block';
+            document.getElementById('promo-code-container').style.display = 'none';
+            document.getElementById('output-page').style.display = 'none';
         }
 
-        // При загрузке страницы устанавливаем начальное значение счетчика
-        document.getElementById('counter').innerText = count;
-        updateTonCounter(); // Обновляем значение конвертированного счетчика
+        function showConfirmation() {
+            document.getElementById('output-page').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+        }
 
-        // Запрещаем приближение при двойном клике на странице (на мобильных устройствах)
+        function confirmTransfer() {
+            window.location.href = "https://example.com"; // Перенаправление на сайт для перевода средств
+        }
+
+        document.getElementById('counter').innerText = count;
+        updateTonCounter();
+
         document.body.addEventListener('dblclick', function(e) {
-            e.preventDefault();  // Останавливаем стандартное действие браузера (масштабирование)
+            e.preventDefault();
         });
     </script>
 
