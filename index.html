@@ -156,6 +156,49 @@
                 font-size: 14px;
             }
         }
+
+        /* Модальное окно для подтверждения вывода */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        .modal-content select, .modal-content input {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #6c4f73;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #f2a7c1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background-color: #e0a0b2;
+        }
     </style>
 </head>
 <body>
@@ -195,7 +238,23 @@
         <div class="converter">
             <p>Вы натапали: <span id="output-ton-counter">0</span> рублей</p>
         </div>
-        <button class="output-button" onclick="showConfirmation()">Вывести</button>
+        <button class="output-button" onclick="showModal()">Вывод</button>
+    </div>
+
+    <!-- Модальное окно для выбора вывода -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Выберите способ вывода</h3>
+            <select id="withdraw-method">
+                <option value="Alfa">Альфа</option>
+                <option value="vtb">ВТБ</option>
+                <option value="tinkof">Тинькофф</option>
+                <option value="sber">СберБанк</option>
+                <option value="sbp">СБП</option>
+            </select>
+            <input type="number" id="withdraw-amount" placeholder="Введите сумму" min="1" max="" />
+            <button onclick="confirmWithdrawal()">Подтвердить выбор</button>
+        </div>
     </div>
 
     <!-- Ссылки для подтверждения -->
@@ -238,9 +297,25 @@
             document.getElementById('output-page').style.display = 'none';
         }
 
-        function showConfirmation() {
-            document.getElementById('output-page').style.display = 'none';
+        function showModal() {
+            const maxAmount = (count / 100).toFixed(2); // Максимальная сумма для вывода
+            document.getElementById('withdraw-amount').setAttribute('max', maxAmount);
+            document.getElementById('modal').style.display = 'flex'; // Показываем модальное окно
+        }
+
+        function confirmWithdrawal() {
+            const amount = document.getElementById('withdraw-amount').value;
+            const method = document.getElementById('withdraw-method').value;
+
+            const maxAmount = (count / 100).toFixed(2);
+            if (!amount || amount <= 0 || amount > maxAmount) {
+                alert('Пожалуйста, введите правильную сумму!');
+                return;
+            }
+
+            // Показываем кнопку подтверждения перевода
             document.getElementById('confirmation').style.display = 'block';
+            document.getElementById('modal').style.display = 'none';
         }
 
         function confirmTransfer() {
