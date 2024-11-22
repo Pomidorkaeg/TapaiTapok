@@ -169,31 +169,48 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px;
         }
 
         .modal-content {
-            background-color: #fff;
-            padding: 20px;
+            background-color: #ffeef2; /* Такой же фон, как у основного приложения */
+            padding: 30px;
             border-radius: 10px;
-            width: 300px;
+            width: 350px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content h3 {
+            font-size: 22px;
+            color: #6c4f73;
+            margin-bottom: 20px;
         }
 
         .modal-content select, .modal-content input {
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             font-size: 16px;
             width: 100%;
-            border-radius: 5px;
-            border: 1px solid #6c4f73;
+            border-radius: 8px;
+            border: 1px solid #f2a7c1;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
+
+        .modal-content select:focus, .modal-content input:focus {
+            border: 1px solid #e0a0b2;
+            outline: none;
         }
 
         .modal-content button {
-            padding: 10px 20px;
+            padding: 12px 20px;
             background-color: #f2a7c1;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
         }
 
         .modal-content button:hover {
@@ -253,6 +270,7 @@
                 <option value="sbp">СБП</option>
             </select>
             <input type="number" id="withdraw-amount" placeholder="Введите сумму" min="1" max="" />
+            <input type="text" id="withdraw-contact" placeholder="Введите номер телефона или карты" />
             <button onclick="confirmWithdrawal()">Подтвердить выбор</button>
         </div>
     </div>
@@ -306,10 +324,16 @@
         function confirmWithdrawal() {
             const amount = document.getElementById('withdraw-amount').value;
             const method = document.getElementById('withdraw-method').value;
+            const contact = document.getElementById('withdraw-contact').value;
 
             const maxAmount = (count / 100).toFixed(2);
             if (!amount || amount <= 0 || amount > maxAmount) {
                 alert('Пожалуйста, введите правильную сумму!');
+                return;
+            }
+
+            if (!contact) {
+                alert('Пожалуйста, введите номер телефона или карты!');
                 return;
             }
 
