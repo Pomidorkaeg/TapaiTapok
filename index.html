@@ -216,6 +216,23 @@
         .modal-content button:hover {
             background-color: #e0a0b2;
         }
+
+        /* Кнопка отмены */
+        .cancel-button {
+            padding: 12px 20px;
+            background-color: #e0a0b2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-button:hover {
+            background-color: #f2a7c1;
+        }
+
     </style>
 </head>
 <body>
@@ -272,6 +289,8 @@
             <input type="number" id="withdraw-amount" placeholder="Введите сумму" min="1" max="" />
             <input type="text" id="withdraw-contact" placeholder="Введите номер телефона или карты" />
             <button onclick="confirmWithdrawal()">Подтвердить выбор</button>
+            <!-- Кнопка отмены -->
+            <button class="cancel-button" onclick="closeModal()">Отмена</button>
         </div>
     </div>
 
@@ -319,6 +338,13 @@
             const maxAmount = (count / 100).toFixed(2); // Максимальная сумма для вывода
             document.getElementById('withdraw-amount').setAttribute('max', maxAmount);
             document.getElementById('modal').style.display = 'flex'; // Показываем модальное окно
+        }
+
+        function closeModal() {
+            // Очищаем поля ввода и скрываем окно
+            document.getElementById('withdraw-amount').value = '';
+            document.getElementById('withdraw-contact').value = '';
+            document.getElementById('modal').style.display = 'none';
         }
 
         function confirmWithdrawal() {
