@@ -1,0 +1,30 @@
+/* Стиль для формы ввода */
+.promo-code-container input,
+.modal-content input,
+.modal-content select {
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #f2a7c1;
+    background-color: #ffeef2; /* Тот же фон, как у основного приложения */
+    box-sizing: border-box;
+    transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+/* Эффект фокуса на полях ввода */
+.promo-code-container input:focus,
+.modal-content input:focus,
+.modal-content select:focus {
+    border: 1px solid #e0a0b2;
+    background-color: #f2a7c1; /* Светлый розовый фон при фокусе */
+    outline: none;
+}
+
+/* Убираем обводку у неактивных элементов */
+.promo-code-container input:not(:focus),
+.modal-content input:not(:focus),
+.modal-content select:not(:focus) {
+    background-color: #ffeef2;
+}
