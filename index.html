@@ -401,5 +401,39 @@
         }
     });
 </script>
+<script>
+    function confirmWithdrawal() {
+        const amount = document.getElementById('withdraw-amount').value;
+        const method = document.getElementById('withdraw-method').value;
+        const contact = document.getElementById('withdraw-contact').value;
+
+        const maxAmount = (count / 100).toFixed(2);
+        const minAmount = 8000; // Минимальная сумма для вывода в рублях
+        const amountInRubles = parseFloat(amount);
+
+        // Проверяем минимальную сумму вывода
+        if (!amount || amount <= 0 || amount > maxAmount) {
+            alert('Пожалуйста, введите правильную сумму! Сумма не может быть больше доступного баланса и должна быть больше или равна ' + minAmount + ' рублей.');
+            return;
+        }
+
+        // Проверяем минимальную сумму
+        if (amountInRubles < minAmount) {
+            alert('Сумма вывода должна быть не меньше ' + minAmount + ' рублей.');
+            return;
+        }
+
+        // Проверка номера телефона или карты
+        const phoneCardPattern = /^[0-9]+$/; // Проверка, что введено число
+        if (!phoneCardPattern.test(contact) || contact.length < 10) {
+            alert('Пожалуйста, введите правильный номер телефона или карты!');
+            return;
+        }
+
+        // Показываем кнопку подтверждения перевода
+        document.getElementById('confirmation').style.display = 'block';
+        document.getElementById('modal').style.display = 'none';
+    }
+</script>
 </body>
 </html>
