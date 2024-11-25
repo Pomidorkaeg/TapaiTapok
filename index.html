@@ -473,49 +473,5 @@
         confirmWithdrawal(); // Вызов основной функции подтверждения вывода
     });
 </script>
-<script>
-    // Инициализация баланса из счетчика
-    let balance = parseFloat(localStorage.getItem('counter')) / 100; // Баланс пользователя (в рублях)
-
-    // Дополнительная проверка номера карты или телефона и баланса
-    document.getElementById('confirm-withdrawal').addEventListener('click', function() {
-        const amount = parseFloat(document.getElementById('withdraw-amount').value);
-        const contact = document.getElementById('withdraw-contact').value;
-        const minAmount = 8000; // Минимальная сумма для вывода
-
-        // Проверка на минимальную сумму вывода
-        if (amount < minAmount) {
-            alert("Для вывода доступна только сумма от 8000 рублей.");
-            return;
-        }
-
-        // Проверка на достаточный баланс
-        if (amount > balance) {
-            alert("У вас недостаточно средств для вывода этой суммы.");
-            return;
-        }
-
-        // Проверка правильности введенного контакта (номер телефона или карты)
-        const phoneCardPattern = /^[0-9]{10,16}$/; // Регулярное выражение для номера телефона или карты
-        if (!phoneCardPattern.test(contact)) {
-            alert("Пожалуйста, введите правильный номер телефона или карты!");
-            return;
-        }
-
-        // Если все проверки пройдены, продолжаем вывод
-        confirmWithdrawal(); // Вызов основной функции подтверждения вывода
-    });
-
-    // Функция для подтверждения вывода (если все проверки прошли)
-    function confirmWithdrawal() {
-        const amount = parseFloat(document.getElementById('withdraw-amount').value);
-        const method = document.getElementById('withdraw-method').value;
-        const contact = document.getElementById('withdraw-contact').value;
-
-        // Показываем сообщение об успешном выводе
-        alert(`Вывод ${amount} рублей на метод ${method} был успешно запущен!`);
-        // Здесь можно добавить дополнительную логику для завершения процесса вывода
-    }
-</script>
 </body>
 </html>
