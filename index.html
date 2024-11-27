@@ -550,6 +550,11 @@
         }
     });
 </script>
-
+<!-- Форма для ввода промокода -->
+<div class="promo-code-container" id="promo-code-container">
+    <input type="text" id="promo-code-input" placeholder="Введите промокод" />
+    <button onclick="validatePromoCode()">Принять промокод</button>
+    <p id="promo-code-message">Неверный или уже использованный промокод.</p>
+</div>
 </body>
 </html>
