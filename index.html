@@ -473,5 +473,83 @@
         confirmWithdrawal(); // Вызов основной функции подтверждения вывода
     });
 </script>
+<!-- Форма для ввода промокода -->
+<div class="promo-code-container" id="promo-code-container">
+    <input type="text" id="promo-code-input" placeholder="Введите промокод" />
+    <button onclick="validatePromoCode()">Использовать</button>
+</div>
+
+<script>
+    function validatePromoCode() {
+        const promoCodeInput = document.getElementById('promo-code-input').value;
+
+        // Отправляем запрос на сервер, чтобы проверить промокод
+        fetch('https://yourserver.com/check_promo_code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ promo_code: promoCodeInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Промокод принят! Осталось ' + data.remaining_uses + ' использований.');
+            } else {
+                alert('Неверный или уже использованный промокод.');
+            }
+        })
+        .catch(error => {
+            alert('Ошибка при проверке промокода.');
+            console.error('Error:', error);
+        });
+    }
+</script>
+<!-- Форма для ввода промокода -->
+<div class="promo-code-container" id="promo-code-container">
+    <input type="text" id="promo-code-input" placeholder="Введите промокод" />
+    <button onclick="validatePromoCode()">Использовать</button>
+    <p id="promo-code-message" style="display:none; color: #4CAF50; font-weight: bold; margin-top: 10px;">Промокод принят!</p>
+</div>
+
+<script>
+    function validatePromoCode() {
+        const promoCodeInput = document.getElementById('promo-code-input').value;
+
+        // Отправляем запрос на сервер, чтобы проверить промокод
+        fetch('https://yourserver.com/check_promo_code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ promo_code: promoCodeInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Показываем сообщение, что промокод принят
+                document.getElementById('promo-code-message').style.display = 'block';
+                // Прячем клавиатуру
+                document.getElementById('promo-code-input').blur();
+            } else {
+                alert('Неверный или уже использованный промокод.');
+            }
+        })
+        .catch(error => {
+            alert('Ошибка при проверке промокода.');
+            console.error('Error:', error);
+        });
+    }
+
+    // Обработчик для скрытия клавиатуры при нажатии Enter
+    document.getElementById('promo-code-input').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            // Убираем фокус с поля ввода, чтобы закрыть клавиатуру
+            this.blur();
+            validatePromoCode(); // Пытаемся ввести промокод
+        }
+    });
+</script>
+
 </body>
 </html>
