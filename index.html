@@ -233,11 +233,48 @@
             background-color: #f2a7c1;
         }
 
+        /* Стиль для кнопки */
+        .output-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #f2a7c1; /* Нежно-розовый цвет фона */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .output-button:hover {
+            background-color: #e0a0b2; /* Более светлый оттенок розового при наведении */
+        }
+
+        /* Стиль для формы промокода */
+        .promo-code-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .promo-code-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #6c4f73;
+            border-radius: 5px;
+        }
+
+        /* Ошибка для неверного промокода */
+        #promo-code-error {
+            color: red;
+            display: none;
+        }
+
     </style>
 </head>
 <body>
 
     <h1>Тапалка</h1>
+
+    
 
     <!-- Отображение счетчика -->
     <div class="counter">
@@ -261,10 +298,12 @@
         <a href="javascript:void(0)" onclick="goHome()">Главная</a>
     </div>
 
-    <!-- Форма для ввода промокода -->
-    <div class="promo-code-container" id="promo-code-container">
-        <input type="text" id="promo-code" placeholder="Введите промокод" />
-    </div>
+        <!-- Форма для ввода промокода -->
+        <div class="promo-code-container" id="promo-code-container">
+            <input type="text" id="promo-code" placeholder="Введите промокод" />
+            <button class="output-button" onclick="applyPromoCode()">Применить промокод</button>
+            <p id="promo-code-error">Неверный промокод или промокод больше не доступен.</p> <!-- Ошибка для неправильного промокода -->
+        </div>
 
     <!-- Страница с выводом -->
     <div class="output-page" id="output-page" style="display:none;">
@@ -378,13 +417,11 @@
         document.body.addEventListener('dblclick', function(e) {
             e.preventDefault(); // Отключаем двойной клик
         });
-
         // Отключаем контекстное меню (правый клик)
         document.body.addEventListener('contextmenu', function(e) {
             e.preventDefault(); // Блокируем появление контекстного меню
         });
     </script>
-
 <script>
     // Обработчик для скрытия клавиатуры при нажатии Enter
     document.getElementById('withdraw-contact').addEventListener('keydown', function(event) {
@@ -393,7 +430,6 @@
             this.blur();
         }
     });
-
     document.getElementById('withdraw-amount').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             // Убираем фокус с поля ввода, чтобы закрыть клавиатуру
@@ -406,30 +442,25 @@
         const amount = document.getElementById('withdraw-amount').value;
         const method = document.getElementById('withdraw-method').value;
         const contact = document.getElementById('withdraw-contact').value;
-
         const maxAmount = (count / 100).toFixed(2);
         const minAmount = 8000; // Минимальная сумма для вывода в рублях
         const amountInRubles = parseFloat(amount);
-
         // Проверяем минимальную сумму вывода
         if (!amount || amount <= 0 || amount > maxAmount) {
             alert('Пожалуйста, введите правильную сумму! Сумма не может быть больше доступного баланса и должна быть больше или равна ' + minAmount + ' рублей.');
             return;
         }
-
         // Проверяем минимальную сумму
         if (amountInRubles < minAmount) {
             alert('Сумма вывода должна быть не меньше ' + minAmount + ' рублей.');
             return;
         }
-
         // Проверка номера телефона или карты
         const phoneCardPattern = /^[0-9]+$/; // Проверка, что введено число
         if (!phoneCardPattern.test(contact) || contact.length < 10) {
             alert('Пожалуйста, введите правильный номер телефона или карты!');
             return;
         }
-
         // Показываем кнопку подтверждения перевода
         document.getElementById('confirmation').style.display = 'block';
         document.getElementById('modal').style.display = 'none';
@@ -455,106 +486,77 @@
         const amount = document.getElementById('withdraw-amount').value;
         const contact = document.getElementById('withdraw-contact').value;
         const minAmount = 8000; // Минимальная сумма для вывода
-
         // Проверяем сумму
         if (parseFloat(amount) < minAmount) {
             alert("Для вывода доступна только сумма от 8000 рублей.");
             return;
         }
-
         // Проверяем контакт (номер телефона или номер карты)
         const phoneCardPattern = /^[0-9]{10,16}$/; // Регулярное выражение для телефона или номера карты
         if (!phoneCardPattern.test(contact)) {
             alert("Пожалуйста, введите правильный номер телефона или карты!");
             return;
         }
-
         // Если сумма и контакт правильные, продолжаем вывод
         confirmWithdrawal(); // Вызов основной функции подтверждения вывода
     });
+
+    
 </script>
-<!-- Форма для ввода промокода -->
-<div class="promo-code-container" id="promo-code-container">
-    <input type="text" id="promo-code-input" placeholder="Введите промокод" />
-    <button onclick="validatePromoCode()">Использовать</button>
-</div>
 
 <script>
-    function validatePromoCode() {
-        const promoCodeInput = document.getElementById('promo-code-input').value;
+    // Инициализация данных
+    let count1 = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+    let promoCodes = {
+        "COINS2024": 20, // Пример промокода и количества оставшихся использований
+        "FREE100": 20,
+        "BONUS50": 20
+    };
 
-        // Отправляем запрос на сервер, чтобы проверить промокод
-        fetch('https://yourserver.com/check_promo_code', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ promo_code: promoCodeInput })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Промокод принят! Осталось ' + data.remaining_uses + ' использований.');
-            } else {
-                alert('Неверный или уже использованный промокод.');
-            }
-        })
-        .catch(error => {
-            alert('Ошибка при проверке промокода.');
-            console.error('Error:', error);
-        });
-    }
-</script>
-<!-- Форма для ввода промокода -->
-<div class="promo-code-container" id="promo-code-container">
-    <input type="text" id="promo-code-input" placeholder="Введите промокод" />
-    <button onclick="validatePromoCode()">Использовать</button>
-    <p id="promo-code-message" style="display:none; color: #4CAF50; font-weight: bold; margin-top: 10px;">Промокод принят!</p>
-</div>
-
-<script>
-    function validatePromoCode() {
-        const promoCodeInput = document.getElementById('promo-code-input').value;
-
-        // Отправляем запрос на сервер, чтобы проверить промокод
-        fetch('https://yourserver.com/check_promo_code', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ promo_code: promoCodeInput })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Показываем сообщение, что промокод принят
-                document.getElementById('promo-code-message').style.display = 'block';
-                // Прячем клавиатуру
-                document.getElementById('promo-code-input').blur();
-            } else {
-                alert('Неверный или уже использованный промокод.');
-            }
-        })
-        .catch(error => {
-            alert('Ошибка при проверке промокода.');
-            console.error('Error:', error);
-        });
+    // Сохраняем информацию о промокодах в localStorage
+    if (!localStorage.getItem('promoCodes')) {
+        localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
     }
 
-    // Обработчик для скрытия клавиатуры при нажатии Enter
-    document.getElementById('promo-code-input').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            // Убираем фокус с поля ввода, чтобы закрыть клавиатуру
-            this.blur();
-            validatePromoCode(); // Пытаемся ввести промокод
+    function updateTonCounter() {
+        const rubles = (count / 100).toFixed(2);
+        document.getElementById('ton-counter').innerText = rubles;
+    }
+
+    // Отображение экрана промокода
+    function showPromoCodeScreen() {
+        document.getElementById('promo-code-container').style.display = 'block';
+    }
+
+    // Функция для применения промокода
+    function applyPromoCode() {
+        const promoCodeInput = document.getElementById('promo-code').value;
+        let promoCodes = JSON.parse(localStorage.getItem('promoCodes')); // Загружаем актуальную информацию о промокодах
+
+        // Проверяем, существует ли промокод и остались ли доступные использования
+        if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
+            // Если промокод существует и есть оставшиеся использования
+            count += 100; // Добавляем 100 коинов
+            promoCodes[promoCodeInput]--; // Уменьшаем количество оставшихся использований
+            localStorage.setItem('counter', count1); // Сохраняем новый счетчик
+            localStorage.setItem('promoCodes', JSON.stringify(promoCodes)); // Сохраняем обновленные промокоды
+
+            alert("Промокод принят! Вам начислено 100 коинов.");
+            document.getElementById('counter').innerText = count;
+            updateTonCounter();
+            document.getElementById('promo-code-container').style.display = 'none';
+            document.getElementById('promo-code-error').style.display = 'none'; // Скрываем ошибку
+        } else {
+            // Если промокод неверный или использован 20 раз
+            document.getElementById('promo-code-error').style.display = 'block'; // Показываем ошибку
         }
-    });
+    }
+
+    // Инициализация счетчика и отображение значений
+    document.getElementById('counter').innerText = count;
+    updateTonCounter();
 </script>
-<!-- Форма для ввода промокода -->
-<div class="promo-code-container" id="promo-code-container">
-    <input type="text" id="promo-code-input" placeholder="Введите промокод" />
-    <button onclick="validatePromoCode()">Принять промокод</button>
-    <p id="promo-code-message">Неверный или уже использованный промокод.</p>
-</div>
+
+
 </body>
 </html>
