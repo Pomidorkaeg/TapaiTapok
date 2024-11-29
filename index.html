@@ -505,11 +505,18 @@
 </script>
 
 <script>
-    //скрытие клавиаутры
+    // Функция для скрытия клавиатуры
     function hideKeyboard() {
-            // Снимаем фокус с поля ввода, чтобы закрыть клавиатуру
-            document.getElementById('promo-code').blur();
+            document.getElementById('promo-code').blur();  // Снимаем фокус с поля ввода
         }
+
+        // Обработчик события нажатия клавиши
+        document.getElementById('promo-code').addEventListener('keydown', function(event) {
+            // Проверяем, была ли нажата клавиша "Enter" (или "Return")
+            if (event.key === 'Enter') {
+                hideKeyboard();  // Скрываем клавиатуру
+            }
+        });
     // Инициализация данных
     let count1 = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
     let promoCodes = {
