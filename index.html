@@ -505,6 +505,11 @@
 </script>
 
 <script>
+    //скрытие клавиаутры
+    function hideKeyboard() {
+            // Снимаем фокус с поля ввода, чтобы закрыть клавиатуру
+            document.getElementById('promo-code').blur();
+        }
     // Инициализация данных
     let count1 = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
     let promoCodes = {
@@ -527,12 +532,10 @@
     function showPromoCodeScreen() {
         document.getElementById('promo-code-container').style.display = 'block';
     }
-
     // Функция для применения промокода
     function applyPromoCode() {
         const promoCodeInput = document.getElementById('promo-code').value;
         let promoCodes = JSON.parse(localStorage.getItem('promoCodes')); // Загружаем актуальную информацию о промокодах
-
         // Проверяем, существует ли промокод и остались ли доступные использования
         if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
             // Если промокод существует и есть оставшиеся использования
@@ -540,7 +543,6 @@
             promoCodes[promoCodeInput]--; // Уменьшаем количество оставшихся использований
             localStorage.setItem('counter', count1); // Сохраняем новый счетчик
             localStorage.setItem('promoCodes', JSON.stringify(promoCodes)); // Сохраняем обновленные промокоды
-
             alert("Промокод принят! Вам начислено 100 коинов.");
             document.getElementById('counter').innerText = count;
             updateTonCounter();
@@ -551,12 +553,9 @@
             document.getElementById('promo-code-error').style.display = 'block'; // Показываем ошибку
         }
     }
-
     // Инициализация счетчика и отображение значений
     document.getElementById('counter').innerText = count;
     updateTonCounter();
 </script>
-
-
 </body>
 </html>
