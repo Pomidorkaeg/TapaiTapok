@@ -5,6 +5,9 @@ function confirmWithdrawal() {
 
     const maxAmount = (count / 100).toFixed(2); // Максимальная сумма для вывода
 
+    localStorage.setItem('counter', count1); // It should be `count` instead of `count1`.
+
+
     // Проверка, что сумма не больше доступного баланса
     if (!amount || amount <= 0 || amount > maxAmount) { 
         alert('Пожалуйста, введите правильную сумму (не больше доступного баланса).');
