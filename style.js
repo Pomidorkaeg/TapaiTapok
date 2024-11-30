@@ -31,26 +31,6 @@ document.getElementById('promo-code-input').addEventListener('keydown', function
     }
 });
 
-// Проверка промокода
-function validatePromoCode() {
-    const promoCodeInput = document.getElementById('promo-code-input').value;
-    const promoCodeMessage = document.getElementById('promo-code-message');
 
-    if (promoCodeInput === "VALIDPROMO") {  // Пример проверочного промокода
-        const addedAmount = 100; // Пример добавления валюты
-        let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
-        count += addedAmount;
-        localStorage.setItem('counter', count);
-        updateTonCounter(count);  // Функция обновления валюты на экране
-        promoCodeMessage.style.display = 'none';  // Скрываем сообщение об ошибке
-        alert(`Промокод принят! Вы получили ${addedAmount} валюты.`);
-    } else {
-        promoCodeMessage.style.display = 'block';  // Показываем ошибку
-    }
-}
 
-function updateTonCounter(count) {
-    const rubles = (count / 100).toFixed(2);
-    document.getElementById('ton-counter').innerText = rubles;
-}
 

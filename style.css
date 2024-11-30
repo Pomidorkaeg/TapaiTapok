@@ -28,36 +28,3 @@
 .modal-content select:not(:focus) {
     background-color: #ffeef2;
 }
-/* Стиль для формы промокода */
-.promo-code-container {
-    display: none;
-    margin-top: 20px;
-}
-
-.promo-code-container input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #6c4f73;
-    border-radius: 5px;
-}
-
-.promo-code-container button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #f2a7c1;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.promo-code-container button:hover {
-    background-color: #e0a0b2;
-}
-
-/* Сообщение об ошибке */
-#promo-code-message {
-    display: none;
-    color: #f44336;
-    font-weight: bold;
-    margin-top: 10px;
-}

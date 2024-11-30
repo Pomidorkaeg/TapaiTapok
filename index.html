@@ -522,7 +522,9 @@
     let promoCodes = {
         "COINS2024": 20, // Пример промокода и количества оставшихся использований
         "FREE100": 20,
-        "BONUS50": 20
+        "BONUS50": 20,
+        "BMW34" : 20,
+        "MEREN240" : 20
     };
 
     // Сохраняем информацию о промокодах в localStorage
@@ -546,7 +548,7 @@
         // Проверяем, существует ли промокод и остались ли доступные использования
         if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
             // Если промокод существует и есть оставшиеся использования
-            count += 100; // Добавляем 100 коинов
+            count  += 100; // Добавляем 100 коинов
             promoCodes[promoCodeInput]--; // Уменьшаем количество оставшихся использований
             localStorage.setItem('counter', count1); // Сохраняем новый счетчик
             localStorage.setItem('promoCodes', JSON.stringify(promoCodes)); // Сохраняем обновленные промокоды
