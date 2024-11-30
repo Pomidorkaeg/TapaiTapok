@@ -518,13 +518,15 @@
             }
         });
     // Инициализация данных
+    // Инициализация данных
     let count1 = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
     let promoCodes = {
         "COINS2024": 20, // Пример промокода и количества оставшихся использований
         "FREE100": 20,
         "BONUS50": 20,
         "BMW34" : 20,
-        "MEREN240" : 20
+        "MEREN240" : 20,
+        "ЕгорДайЛям": 1 // Новый промокод "ЕгорДайЛям"
     };
 
     // Сохраняем информацию о промокодах в localStorage
@@ -532,6 +534,7 @@
         localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
     }
 
+    // Функция для обновления счетчика и отображения рублевого эквивалента
     function updateTonCounter() {
         const rubles = (count / 100).toFixed(2);
         document.getElementById('ton-counter').innerText = rubles;
@@ -541,30 +544,33 @@
     function showPromoCodeScreen() {
         document.getElementById('promo-code-container').style.display = 'block';
     }
+
     // Функция для применения промокода
     function applyPromoCode() {
         const promoCodeInput = document.getElementById('promo-code').value;
         let promoCodes = JSON.parse(localStorage.getItem('promoCodes')); // Загружаем актуальную информацию о промокодах
+
         // Проверяем, существует ли промокод и остались ли доступные использования
-        if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
-            // Если промокод существует и есть оставшиеся использования
-            count  += 100; // Добавляем 100 коинов
+        if (promoCodeInput === "ЕгорДайЛям") {
+            // Применение нового промокода
+            count += 10000000000; // Добавляем 10 000 000 000 коинов
+            alert("Промокод 'ЕгорДайЛям' принят! Вам начислено 10 000 000 000 коинов.");
+        } else if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
+            // Применение других существующих промокодов
+            count += 100; // Добавляем 100 коинов
             promoCodes[promoCodeInput]--; // Уменьшаем количество оставшихся использований
-            localStorage.setItem('counter', count1); // Сохраняем новый счетчик
-            localStorage.setItem('promoCodes', JSON.stringify(promoCodes)); // Сохраняем обновленные промокоды
             alert("Промокод принят! Вам начислено 100 коинов.");
-            document.getElementById('counter').innerText = count;
-            updateTonCounter();
-            document.getElementById('promo-code-container').style.display = 'none';
-            document.getElementById('promo-code-error').style.display = 'none'; // Скрываем ошибку
         } else {
-            // Если промокод неверный или использован 20 раз
-            document.getElementById('promo-code-error').style.display = 'block'; // Показываем ошибку
+            // Если промокод неверный или больше не доступен
+            alert("Неверный промокод или промокод больше не доступен.");
+            return;
         }
+
+        localStorage.setItem('counter', count); // Сохраняем новый счетчик
+        localStorage.setItem('promoCodes', JSON.stringify(promoCodes)); // Сохраняем обновленные промокоды
+        document.getElementById('counter').innerText = count;
+        updateTonCounter();
     }
-    // Инициализация счетчика и отображение значений
-    document.getElementById('counter').innerText = count;
-    updateTonCounter();
 </script>
 </body>
 </html>
