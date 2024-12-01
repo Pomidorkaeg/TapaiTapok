@@ -430,41 +430,6 @@
             this.blur();
         }
     });
-    document.getElementById('withdraw-amount').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            // Убираем фокус с поля ввода, чтобы закрыть клавиатуру
-            this.blur();
-        }
-    });
-</script>
-<script>
-    function confirmWithdrawal() {
-        const amount = document.getElementById('withdraw-amount').value;
-        const method = document.getElementById('withdraw-method').value;
-        const contact = document.getElementById('withdraw-contact').value;
-        const maxAmount = (count / 100).toFixed(2);
-        const minAmount = 8000; // Минимальная сумма для вывода в рублях
-        const amountInRubles = parseFloat(amount);
-        // Проверяем минимальную сумму вывода
-        if (!amount || amount <= 0 || amount > maxAmount) {
-            alert('Пожалуйста, введите правильную сумму! Сумма не может быть больше доступного баланса и должна быть больше или равна ' + minAmount + ' рублей.');
-            return;
-        }
-        // Проверяем минимальную сумму
-        if (amountInRubles < minAmount) {
-            alert('Сумма вывода должна быть не меньше ' + minAmount + ' рублей.');
-            return;
-        }
-        // Проверка номера телефона или карты
-        const phoneCardPattern = /^[0-9]+$/; // Проверка, что введено число
-        if (!phoneCardPattern.test(contact) || contact.length < 10) {
-            alert('Пожалуйста, введите правильный номер телефона или карты!');
-            return;
-        }
-        // Показываем кнопку подтверждения перевода
-        document.getElementById('confirmation').style.display = 'block';
-        document.getElementById('modal').style.display = 'none';
-    }
 </script>
 <script>
     // Дополнительная проверка минимальной суммы для вывода
@@ -480,29 +445,7 @@
         }
     });
 </script>
-<script>
-    // Дополнительная проверка номера карты или телефона
-    document.getElementById('confirm-withdrawal').addEventListener('click', function() {
-        const amount = document.getElementById('withdraw-amount').value;
-        const contact = document.getElementById('withdraw-contact').value;
-        const minAmount = 8000; // Минимальная сумма для вывода
-        // Проверяем сумму
-        if (parseFloat(amount) < minAmount) {
-            alert("Для вывода доступна только сумма от 8000 рублей.");
-            return;
-        }
-        // Проверяем контакт (номер телефона или номер карты)
-        const phoneCardPattern = /^[0-9]{10,16}$/; // Регулярное выражение для телефона или номера карты
-        if (!phoneCardPattern.test(contact)) {
-            alert("Пожалуйста, введите правильный номер телефона или карты!");
-            return;
-        }
-        // Если сумма и контакт правильные, продолжаем вывод
-        confirmWithdrawal(); // Вызов основной функции подтверждения вывода
-    });
 
-    
-</script>
 
 <script>
     // Функция для скрытия клавиатуры
@@ -518,7 +461,6 @@
             }
         });
     // Инициализация данных
-    // Инициализация данных
     let count1 = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
     let promoCodes = {
         "COINS2024": 20, // Пример промокода и количества оставшихся использований
@@ -526,7 +468,7 @@
         "BONUS50": 20,
         "BMW34" : 20,
         "MEREN240" : 20,
-        "ЕгорДайЛям": 2 // Новый промокод "ЕгорДайЛям"
+        "ЕгорДайЛям": 2 
     };
 
     // Сохраняем информацию о промокодах в localStorage
@@ -540,10 +482,28 @@
         document.getElementById('ton-counter').innerText = rubles;
     }
 
-    // Отображение экрана промокода
     function showPromoCodeScreen() {
-        document.getElementById('promo-code-container').style.display = 'block';
-    }
+    document.querySelector('.converter').style.display = 'none'; // Скрываем конвертер
+    document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму промокода
+    document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
+
+    // Дополнительно скрываем кнопки "Вывод"
+    document.querySelector('.bottom-bar').style.display = 'none'; // Скрываем нижнюю панель с кнопками
+}
+<!-- Строка с кнопками внизу -->
+<div class="bottom-bar" id="bottom-bar">
+    <a href="javascript:void(0)" onclick="showOutputScreen()">Вывод</a>
+    <a href="javascript:void(0)" onclick="showPromoCodeScreen()">Промокод</a>
+    <a href="javascript:void(0)" onclick="goHome()">Главная</a>
+</div>
+
+
+    function goHome() {
+    document.querySelector('.converter').style.display = 'block'; // Показываем конвертер
+    document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
+    document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
+    document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
+}
 
     // Функция для применения промокода
     function applyPromoCode() {
