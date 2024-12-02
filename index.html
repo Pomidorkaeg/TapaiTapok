@@ -99,24 +99,30 @@
             background-color: #e0a0b2; /* Более светлый оттенок розового при наведении */
         }
 
-        /* Стиль нижней строки с кнопками */
-        .bottom-bar {
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            font-size: 16px;
-            color: #6c4f73;
-            flex-wrap: wrap;
-        }
+/* Стиль нижней строки с кнопками */
+.bottom-bar {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 20px; /* Увеличиваем размер шрифта для ссылок */
+    color: #6c4f73;
+    flex-wrap: wrap;
+}
 
-        .bottom-bar a {
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: bold;
-            color: #f2a7c1; /* Нежно-розовый цвет текста */
-            transition: color 0.3s ease;
-        }
+.bottom-bar a {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    color: #f2a7c1; /* Нежно-розовый цвет текста */
+    transition: color 0.3s ease;
+    padding: 10px 15px; /* Добавляем отступы для улучшения внешнего вида */
+}
+
+.bottom-bar a:hover {
+    color: #e0a0b2; /* Светлый розовый цвет текста при наведении */
+}
+
 
         .bottom-bar a:hover {
             color: #e0a0b2; /* Светлый розовый цвет текста при наведении */
