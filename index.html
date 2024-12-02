@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <title>Тапалка</title>
     <style>
         /* Основные стили для тела страницы */
@@ -292,11 +293,17 @@
         <span id="ton-counter">0</span> рублей
     </div>
 
-    <!-- Строка с кнопками внизу -->
+    <!-- Строка с кнопками внизу с иконками -->
     <div class="bottom-bar">
-        <a href="javascript:void(0)" onclick="showOutputScreen()">Вывод</a>
-        <a href="javascript:void(0)" onclick="showPromoCodeScreen()">Промокод</a>
-        <a href="javascript:void(0)" onclick="goHome()">Главная</a>
+        <a href="javascript:void(0)" onclick="showOutputScreen()">
+            <i class="fas fa-arrow-circle-down"></i> Вывод
+        </a>
+        <a href="javascript:void(0)" onclick="showPromoCodeScreen()">
+            <i class="fas fa-gift"></i> Промокод
+        </a>
+        <a href="javascript:void(0)" onclick="goHome()">
+            <i class="fas fa-home"></i> Главная
+        </a>
     </div>
 
         <!-- Форма для ввода промокода -->
