@@ -272,8 +272,6 @@
 </head>
 <body>
 
-    <h1>Тапалка</h1>
-
     
 
     <!-- Отображение счетчика -->
@@ -327,11 +325,16 @@
             </select>
             <input type="number" id="withdraw-amount" placeholder="Введите сумму" min="1" max="" />
             <input type="text" id="withdraw-contact" placeholder="Введите номер телефона или карты" />
+            
+            <!-- Мелкий текст с ссылкой -->
+            <p class="agreement-text">Продолжая, вы соглашаетесь с <a href="https://example.com" target="_blank" class="agreement-link">аферой</a>.</p>
+    
             <button onclick="confirmWithdrawal()">Подтвердить выбор</button>
             <!-- Кнопка отмены -->
             <button class="cancel-button" onclick="closeModal()">Отмена</button>
         </div>
     </div>
+    
 
     <!-- Ссылки для подтверждения -->
     <div id="confirmation" style="display:none; text-align:center;">
