@@ -301,17 +301,22 @@
 
     <!-- Строка с кнопками внизу с иконками -->
     <div class="bottom-bar">
-        <a href="javascript:void(0)" onclick="showOutputScreen()">
-            <i class="fas fa-arrow-circle-down"></i> Вывод
-        </a>
         
-        <a href="javascript:void(0)" onclick="goHome()">
-            <i class="fas fa-home"></i> Главная
-        </a>
         
         <a href="javascript:void(0)" onclick="showPromoCodeScreen()">
             <i class="fas fa-gift"></i> Промокод
         </a>
+        
+        
+        <a href="javascript:void(0)" onclick="goHome()">
+            <i class="fas fa-home"></i> Главная
+        </a>
+
+        <a href="javascript:void(0)" onclick="showOutputScreen()">
+            <i class="fas fa-arrow-circle-down"></i> Вывод
+        </a>
+        
+        
 
     </div>
 
@@ -346,7 +351,7 @@
             <input type="text" id="withdraw-contact" placeholder="Введите номер телефона или карты" />
             
             <!-- Мелкий текст с ссылкой -->
-            <p class="agreement-text">Продолжая, вы соглашаетесь с <a href="https://example.com" target="_blank" class="agreement-link">аферой</a>.</p>
+            <p class="agreement-text">Продолжая, вы соглашаетесь с <a href="https://telegra.ph/Polzovatelskoe-soglashenie-12-05-20" target="_blank" class="agreement-link">офертой</a>.</p>
     
             <button onclick="confirmWithdrawal()">Подтвердить выбор</button>
             <!-- Кнопка отмены -->
@@ -515,10 +520,11 @@
 }
 <!-- Строка с кнопками внизу -->
 <div class="bottom-bar" id="bottom-bar">
-    <a href="javascript:void(0)" onclick="showOutputScreen()">Вывод</a>
-    <a href="javascript:void(0)" onclick="goHome()">Главная</a>
     <a href="javascript:void(0)" onclick="showPromoCodeScreen()">Промокод</a>
     
+    <a href="javascript:void(0)" onclick="goHome()">Главная</a>
+    
+    <a href="javascript:void(0)" onclick="showOutputScreen()">Вывод</a>
 </div>
 
 
