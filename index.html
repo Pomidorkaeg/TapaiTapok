@@ -427,12 +427,19 @@
             
         }
 
-        function goHome() {
-            document.querySelector('.converter').style.display = 'block';
-            document.getElementById('promo-code-container').style.display = 'none';
-            document.getElementById('output-page').style.display = 'none';
-            document.getElementById('telegram-button').style.display = 'none';
-        }
+    // Функция для отображения главной страницы по умолчанию
+    document.addEventListener('DOMContentLoaded', function() {
+        goHome(); // Автоматически открывает вкладку "Главная"
+    });
+
+    // Функция для отображения главной страницы
+    function goHome() {
+        document.querySelector('.converter').style.display = 'block'; // Показываем конвертер
+        document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
+        document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
+        document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
+        document.getElementById('telegram-button').style.display = 'none'; // Скрываем кнопку Telegram
+    }
 
         function showModal() {
             const maxAmount = (count / 100).toFixed(2); // Максимальная сумма для вывода
@@ -545,6 +552,27 @@
         const rubles = (count / 100).toFixed(2);
         document.getElementById('ton-counter').innerText = rubles;
     }
+
+    // Функция для добавления 250 коинов на счет
+function addTelegramBonus() {
+    const count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+
+    // Добавляем 250 коинов на счет
+    let newCount = count + 250;
+    localStorage.setItem('counter', newCount);  // Сохраняем новый счет в localStorage
+
+    // Обновляем счет на странице
+    document.getElementById('counter').innerText = newCount;
+    updateTonCounter();  // Обновляем рублевый эквивалент
+
+    alert('Вы подписались на канал! Вам начислено 250 коинов.');
+}
+
+function updateTonCounter() {
+    const rubles = (count / 100).toFixed(2);
+    document.getElementById('ton-counter').innerText = rubles;
+}
+
 
     function showPromoCodeScreen() {
     document.querySelector('.converter').style.display = 'none'; // Скрываем конвертер
