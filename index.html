@@ -349,12 +349,12 @@
             <p id="promo-code-error">Неверный промокод или промокод больше не доступен.</p> <!-- Ошибка для неправильного промокода -->
         </div>
 <!-- Кнопка с иконкой Telegram -->
-        <div class="telegram-button" id="telegram-button" onclick="telegramm-buttun" onclick="addTelegramBonus()">  
-            <a href="https://t.me/+oKDeOMubmCo5MjNi" class="telegram-button" target="_blank" >
-            <i class="fab fa-telegram-plane"></i>
-            Присоединяйся и получи 250 нажатий 
-            </a>
-        </div>
+<div class="telegram-button" id="telegram-button">
+    <a href="https://t.me/+oKDeOMubmCo5MjNi" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+        <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
+    </a>
+</div>
+
 
     <!-- Страница с выводом -->
     <div class="output-page" id="output-page" style="display:none;">
@@ -570,6 +570,21 @@ function addTelegramBonus() {
 function updateTonCounter() {
     const rubles = (count / 100).toFixed(2);
     document.getElementById('ton-counter').innerText = rubles;
+}
+
+    // Функция для добавления 250 коинов на счет после подписки
+function addTelegramBonus() {
+    let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+
+    // Добавляем 250 коинов (2.5 рубля) на счет
+    let newCount = count + 250;
+    localStorage.setItem('counter', newCount);  // Сохраняем новый счет в localStorage
+
+    // Обновляем счет на странице
+    document.getElementById('counter').innerText = newCount;
+    updateTonCounter();  // Обновляем рублевый эквивалент
+
+    alert('Вы подписались на канал! Вам начислено 250 коинов (2.5 рубля).');
 }
 
 
