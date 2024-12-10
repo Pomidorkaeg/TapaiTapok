@@ -332,7 +332,7 @@
         
         
         <a href="javascript:void(0)" onclick="goHome()">
-            <i class="fas fa-home"></i> Главная
+            <i class="fa-solid fa-headset"></i> Поддержка
         </a>
 
         <a href="javascript:void(0)" onclick="showOutputScreen()">
@@ -355,6 +355,11 @@
     </a>
 </div>
 
+<div class="support" id="support">
+    <a href="https://web.telegram.org/a/#1702053477" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+        <i class="fab fa-telegram-plane"></i> Поддержка
+    </a>
+</div>
 
     <!-- Страница с выводом -->
     <div class="output-page" id="output-page" style="display:none;">
@@ -416,6 +421,7 @@
             document.getElementById('promo-code-container').style.display = 'none';
             document.getElementById('telegram-button').style.display = 'none';
             document.getElementById('output-page').style.display = 'block';
+            document.getElementById('support').style.display = 'none';
         }
 
         function showPromoCodeScreen() {
@@ -423,7 +429,7 @@
             document.getElementById('promo-code-container').style.display = 'block';
             document.getElementById('output-page').style.display = 'none';
             document.getElementById('telegram-button').style.display = 'block';
-            
+            document.getElementById('support').style.display = 'none';
         }
 
     // Функция для отображения главной страницы по умолчанию
@@ -436,8 +442,9 @@
         document.querySelector('.converter').style.display = 'block'; // Показываем конвертер
         document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
         document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
-        document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
         document.getElementById('telegram-button').style.display = 'none'; // Скрываем кнопку Telegram
+        document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
+        document.getElementById('support').style.display = 'block';
     }
 
         function showModal() {
@@ -614,6 +621,8 @@ function addTelegramBonus() {
     document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
     document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
     document.getElementById('telegramm-button').style.display = 'none';
+    document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
+    document.querySelector('goHome').style.display = 'flex';
 }
 
     // Функция для применения промокода
