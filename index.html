@@ -552,8 +552,7 @@
         const rubles = (count / 100).toFixed(2);
         document.getElementById('ton-counter').innerText = rubles;
     }
-
-    const TELEGRAM_BOT_TOKEN = 'your-telegram-bot-token';  // Ваш токен бота
+    const TELEGRAM_BOT_TOKEN = '7438872799:AAGCUTf5cvb_4mTDxScMbBWlrYhPsk2gxio';  // Ваш токен бота
 const CHANNEL_USERNAME = '@vaegor';  // Username канала в Telegram
 
 // Функция для проверки подписки пользователя на канал
@@ -569,11 +568,13 @@ async function checkSubscription(userId) {
     }
 }
 
-// Функция для добавления 250 коинов на счет после проверки подписки
+// Функция для добавления 250 коинов на счет
 async function addTelegramBonus(userId) {
+    // Проверяем подписку
     const isSubscribed = await checkSubscription(userId);
 
     if (isSubscribed) {
+        // Получаем текущий счет
         let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
         // Добавляем 250 коинов (2.5 рубля) на счет
@@ -596,8 +597,6 @@ function updateTonCounter() {
     const rubles = (count / 100).toFixed(2);
     document.getElementById('ton-counter').innerText = rubles;
 }
-
-
 
     function showPromoCodeScreen() {
     document.querySelector('.converter').style.display = 'none'; // Скрываем конвертер
