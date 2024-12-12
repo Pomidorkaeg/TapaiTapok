@@ -22,9 +22,11 @@
     outline: none;
 }
 
+
 /* Убираем обводку у неактивных элементов */
 .promo-code-container input:not(:focus),
 .modal-content input:not(:focus),
 .modal-content select:not(:focus) {
     background-color: #ffeef2;
 }
+
