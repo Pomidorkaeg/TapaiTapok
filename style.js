@@ -79,3 +79,27 @@ if (isSubscribed) {
     alert('Вы не подписаны на канал. Пожалуйста, подпишитесь и попробуйте снова.');
 }
 }
+const express = require('express');
+const fetch = require('node-fetch');
+const app = express();
+const token = '7438872799:AAGCUTf5cvb_4mTDxScMbBWlrYhPsk2gxio'; // Ваш токен бота
+const channelUsername = '@vaegor'; // Имя вашего канала
+
+app.get('/verify-subscription', async (req, res) => {
+    const userId = req.query.userId; // Получаем ID пользователя из запроса
+
+    // Используем метод getChatMember для проверки подписки
+    const response = await fetch(`https://api.telegram.org/bot${token}/getChatMember?chat_id=${channelUsername}&user_id=${userId}`);
+    const data = await response.json();
+
+    if (data.ok && data.result.status === 'member') {
+        // Пользователь подписан, начисляем 250 рублей
+        res.json({ success: true, message: 'Подписка подтверждена, 250 рублей начислены!' });
+    } else {
+        res.json({ success: false, message: 'Вы не подписаны на канал.' });
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
