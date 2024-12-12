@@ -612,5 +612,21 @@ function updateTonCounter() {
         updateTonCounter();
     }
 </script>
+<script>
+    function addTelegramBonus() {
+    let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+    
+    // Добавляем 250 рублей на счёт пользователя
+    count += 25000;  // 250 рублей = 25000 коинов (предположим, что 1 рубль = 100 коинов)
+    
+    // Сохраняем обновлённый счёт в localStorage
+    localStorage.setItem('counter', count);
+    
+    // Обновляем отображение счётчика
+    document.getElementById('counter').innerText = count;
+    updateTonCounter(); // Обновляем рублевый эквивалент
+    alert("Вы успешно подписались на канал и получили 250 рублей!");
+}
+</script>
 </body>
 </html>
