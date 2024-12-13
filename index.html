@@ -614,19 +614,29 @@ function updateTonCounter() {
 </script>
 <script>
     function addTelegramBonus() {
-    let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
-    
-    // Добавляем 250 рублей на счёт пользователя
-    count += 25000;  // 250 рублей = 25000 коинов (предположим, что 1 рубль = 100 коинов)
-    
-    // Сохраняем обновлённый счёт в localStorage
-    localStorage.setItem('counter', count);
-    
-    // Обновляем отображение счётчика
-    document.getElementById('counter').innerText = count;
-    updateTonCounter(); // Обновляем рублевый эквивалент
-    alert("Вы успешно подписались на канал и получили 250 рублей!");
-}
+        // Проверяем, был ли уже получен бонус за подписку
+        if (localStorage.getItem('telegramBonusReceived') === 'true') {
+            alert("Вы уже получили бонус за подписку на канал.");
+            return;
+        }
+
+        let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+
+        // Добавляем 250 рублей на счет пользователя
+        count += 25000;  // 250 рублей = 25000 коинов (предположим, что 1 рубль = 100 коинов)
+
+        // Сохраняем обновленный счет в localStorage
+        localStorage.setItem('counter', count);
+
+        // Помечаем, что бонус был начислен
+        localStorage.setItem('telegramBonusReceived', 'true');
+
+        // Обновляем отображение счетчика
+        document.getElementById('counter').innerText = count;
+        updateTonCounter(); // Обновляем рублевый эквивалент
+
+        alert("Вы успешно подписались на канал и получили 250 рублей!");
+    }
 </script>
 </body>
 </html>
