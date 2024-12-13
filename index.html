@@ -342,12 +342,14 @@
            
             <p id="promo-code-error">Неверный промокод или промокод больше не доступен.</p> <!-- Ошибка для неправильного промокода -->
         </div>
+
 <!-- Кнопка с иконкой Telegram -->
 <div class="telegram-button" id="telegram-button">
-    <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+    <a href="https://t.me/TapalkaTapp" onclick="addTelegramBonus()">  
         <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
     </a>
 </div>
+
 
 <div class="support" id="support">
     <a href="https://t.me/popipazm" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
@@ -419,12 +421,12 @@
         }
 
         function showPromoCodeScreen() {
-            document.querySelector('.converter').style.display = 'none';
-            document.getElementById('promo-code-container').style.display = 'block';
-            document.getElementById('output-page').style.display = 'none';
-            document.getElementById('telegram-button').style.display = 'block';
-            document.getElementById('support').style.display = 'none';
-        }
+        document.querySelector('.converter').style.display = 'none'; // Скрываем конвертер
+        document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму промокода
+        document.getElementById('telegram-button').style.display = 'block'; // Показываем кнопку Telegram
+        document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
+        document.getElementById('support').style.display = 'none'; // Скрываем поддержку
+    }
 
     // Функция для отображения главной страницы по умолчанию
     document.addEventListener('DOMContentLoaded', function() {
@@ -555,16 +557,13 @@ function updateTonCounter() {
     document.getElementById('ton-counter').innerText = rubles;
 }
 
-    function showPromoCodeScreen() {
-    document.querySelector('.converter').style.display = 'none'; // Скрываем конвертер
-    document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму промокода
-    document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
-    
-
-    // Дополнительно скрываем кнопки "Вывод"
-    document.querySelector('.bottom-bar').style.display = 'none'; // Скрываем нижнюю панель с кнопками
-    document.getElementById('telegramm-button').style.display = 'none';
-}
+function showPromoCodeScreen() {
+        document.querySelector('.converter').style.display = 'none'; // Скрываем конвертер
+        document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму промокода
+        document.getElementById('telegram-button').style.display = 'block'; // Показываем кнопку Telegram
+        document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
+        document.getElementById('support').style.display = 'none'; // Скрываем поддержку
+    }
 <!-- Строка с кнопками внизу -->
 <div class="bottom-bar" id="bottom-bar">
     <a href="javascript:void(0)" onclick="showPromoCodeScreen()">Промокод</a>
@@ -612,12 +611,16 @@ function updateTonCounter() {
         updateTonCounter();
     }
 </script>
+
+
 <script>
-    function addTelegramBonus() {
+ function addTelegramBonus() {
         // Проверяем, был ли уже получен бонус за подписку
         if (localStorage.getItem('telegramBonusReceived') === 'true') {
-            // Если бонус уже получен, не делаем ничего
-            alert("Вы уже получили бонус за подписку на канал.");
+            // Если бонус уже получен, показываем сообщение только на странице с промокодом
+            if (document.getElementById('promo-code-container').style.display === 'block') {
+                alert("Вы уже получили бонус за подписку на канал.");
+            }
             return;
         }
 
@@ -637,9 +640,12 @@ function updateTonCounter() {
         document.getElementById('counter').innerText = count;
         updateTonCounter(); // Обновляем рублевый эквивалент
 
-        // Показываем alert только один раз при подписке на канал
-        alert("Вы успешно подписались на канал и получили 250 рублей!");
+        // Показываем alert только один раз при подписке на канал, если на странице с промокодом
+        if (document.getElementById('promo-code-container').style.display === 'block') {
+            alert("Вы успешно подписались на канал и получили 250 рублей!");
+        }
     }
 </script>
+
 </body>
 </html>
