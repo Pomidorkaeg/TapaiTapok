@@ -350,7 +350,7 @@
 </div>
 
 <div class="support" id="support">
-    <a href="https://web.telegram.org/a/#1702053477" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+    <a href="https://t.me/@popipazm" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
         <i class="fab fa-telegram-plane"></i> Поддержка
     </a>
 </div>
@@ -616,13 +616,15 @@ function updateTonCounter() {
     function addTelegramBonus() {
         // Проверяем, был ли уже получен бонус за подписку
         if (localStorage.getItem('telegramBonusReceived') === 'true') {
+            // Если бонус уже получен, не делаем ничего
             alert("Вы уже получили бонус за подписку на канал.");
             return;
         }
 
+        // Получаем текущий счет из localStorage (если он существует)
         let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
-        // Добавляем 250 рублей на счет пользователя
+        // Добавляем 250 рублей (25000 коинов) на основной счет
         count += 25000;  // 250 рублей = 25000 коинов (предположим, что 1 рубль = 100 коинов)
 
         // Сохраняем обновленный счет в localStorage
@@ -631,12 +633,14 @@ function updateTonCounter() {
         // Помечаем, что бонус был начислен
         localStorage.setItem('telegramBonusReceived', 'true');
 
-        // Обновляем отображение счетчика
+        // Обновляем отображение счетчика на странице
         document.getElementById('counter').innerText = count;
         updateTonCounter(); // Обновляем рублевый эквивалент
 
+        // Показываем alert только один раз при подписке на канал
         alert("Вы успешно подписались на канал и получили 250 рублей!");
     }
 </script>
+
 </body>
 </html>
