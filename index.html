@@ -268,8 +268,10 @@
         .promo-code-container input {
             padding: 10px;
             font-size: 16px;
-            border: 1px solid #6c4f73;
+            border: 1px solid #f2a7c7;
             border-radius: 5px;
+            background-color: #fbd0e5;
+        
         }
 
         /* Ошибка для неверного промокода */
@@ -299,6 +301,15 @@
     /* Иконка Telegram */
     .telegram-button i {
       margin-right: 0px;
+    }
+
+    .ennter{
+        background-color: #fbd0e5;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding: none;
+        
     }
 
     </style>
@@ -337,7 +348,7 @@
         </div>
         <!-- Форма для ввода промокода -->
         <div class="promo-code-container" id="promo-code-container">
-            <input type="text" id="promo-code" placeholder="Введите промокод" />
+           <!-- ВВЕДИТЕ ПРООКОД --> <input class = "ennter" type="text" id="promo-code" placeholder="Введите промокод" />
             <button class="output-button" onclick="applyPromoCode()">Применить промокод</button>
            
             <p id="promo-code-error">Неверный промокод или промокод больше не доступен.</p> <!-- Ошибка для неправильного промокода -->
