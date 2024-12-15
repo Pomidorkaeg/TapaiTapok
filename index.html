@@ -253,6 +253,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-emphasis-color: black;
         }
 
         .output-button:hover {
@@ -349,7 +350,7 @@
         <!-- Форма для ввода промокода -->
         <div class="promo-code-container" id="promo-code-container">
            <!-- ВВЕДИТЕ ПРООКОД --> <input class = "ennter" type="text" id="promo-code" placeholder="Введите промокод" />
-            <button class="output-button" onclick="applyPromoCode()">Применить промокод</button>
+            <button class="output-button" onclick="applyPromoCode() ">Применить промокод</button>
            
             <p id="promo-code-error">Неверный промокод или промокод больше не доступен.</p> <!-- Ошибка для неправильного промокода -->
         </div>
