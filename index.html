@@ -320,12 +320,15 @@
         padding: none;
         
     }
+    .errorMessage{
+        color: red;
+        background-color: red;
+        text-decoration-color: red;
+    }
 
     </style>
 </head>
 <body>
-
-    
 
     <!-- Отображение счетчика -->
     <div class="counter">
@@ -343,8 +346,7 @@
     </div>
 
     <!-- Строка с кнопками внизу с иконками -->
-    <div class="bottom-bar">
-        
+    <div class="bottom-bar" id="bottom-bar">
         <a href="javascript:void(0)" onclick="showPromoCodeScreen()">
             <i class="fas fa-gift"></i> Промокод
         </a>    
@@ -354,28 +356,27 @@
         <a href="javascript:void(0)" onclick="showOutputScreen()">
             <i class="fas fa-arrow-circle-down"></i> Вывод
         </a>
-        </div>
-        <!-- Форма для ввода промокода -->
-        <div class="promo-code-container" id="promo-code-container">
-           <!-- ВВЕДИТЕ ПРООКОД --> <input class = "ennter" type="text" id="promo-code" placeholder="Введите промокод" />
-            <button class="output-button" onclick="applyPromoCode() ">Применить промокод</button>
-           
-            <p id="promo-code-error">Неверный промокод или промокод больше не доступен.</p> <!-- Ошибка для неправильного промокода -->
-        </div>
+    </div>
 
-<!-- Кнопка с иконкой Telegram -->
-<div  id="telegram-button">
-    <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
-        <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
-    </a>
-</div>
+    <!-- Форма для ввода промокода -->
+    <div class="promo-code-container" id="promo-code-container">
+        <input class="ennter" type="text" id="promo-code" placeholder="Введите промокод" />
+        <button class="output-button" onclick="applyPromoCode()">Применить промокод</button>
+        <p id="promo-code-message" style="display:none;"></p> <!-- Сообщение о промокоде -->
+    </div>
 
+    <!-- Кнопка с иконкой Telegram -->
+    <div  id="telegram-button">
+        <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+            <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
+        </a>
+    </div>
 
-<div class="support" id="support">
-    <a href="https://t.me/popipazm" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
-        <i class="fab fa-telegram-plane"></i> Поддержка
-    </a>
-</div>
+    <div class="support" id="support">
+        <a href="https://t.me/popipazm" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+            <i class="fab fa-telegram-plane"></i> Поддержка
+        </a>
+    </div>
 
     <!-- Страница с выводом -->
     <div class="output-page" id="output-page" style="display:none;">
@@ -397,19 +398,16 @@
                 <option value="sber">СберБанк</option>
                 <option value="sbp">СБП</option>
             </select>
-            <input type="number" id="withdraw-amount" placeholder="Введите сумму" min="1" max="" />
+            <input type="number" id="withdraw-amount" placeholder="Введите сумму" min="1" />
             <input type="text" id="withdraw-contact" placeholder="Введите номер телефона или карты" />
             
-            <!-- Мелкий текст с ссылкой -->
             <p class="agreement-text">Продолжая, вы соглашаетесь с <a href="https://telegra.ph/Polzovatelskoe-soglashenie-12-05-20" target="_blank" class="agreement-link">офертой</a>.</p>
     
             <button onclick="confirmWithdrawal()">Подтвердить выбор</button>
-            <!-- Кнопка отмены -->
             <button class="cancel-button" onclick="closeModal()">Отмена</button>
         </div>
     </div>
     
-
     <!-- Ссылки для подтверждения -->
     <div id="confirmation" style="display:none; text-align:center;">
         <p>Вы уверены, что хотите перевести средства?</p>
@@ -441,45 +439,47 @@
         }
 
         function showPromoCodeScreen() {
-        document.querySelector('.converter').style.display = 'block'; // Скрываем конвертер
-        document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму промокода
-        document.getElementById('telegram-button').style.display = 'block'; // Показываем кнопку Telegram
-        document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
-        document.getElementById('support').style.display = 'none'; // Скрываем поддержку
-    }
+            document.querySelector('.converter').style.display = 'block';
+            document.getElementById('promo-code-container').style.display = 'block';
+            document.getElementById('telegram-button').style.display = 'block';
+            document.getElementById('output-page').style.display = 'none';
+            document.getElementById('support').style.display = 'none';
+            document.getElementById('promo-code-message').style.display = 'none';
+        }
 
-    // Функция для отображения главной страницы по умолчанию
-    document.addEventListener('DOMContentLoaded', function() {
-        goHome(); // Автоматически открывает вкладку "Главная"
-    });
+        function goHome() {
+            document.querySelector('.converter').style.display = 'block'; // Показываем конвертер
+            document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
+            document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
+            document.getElementById('telegram-button').style.display = 'none'; // Скрываем кнопку Telegram
+            document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
+            document.getElementById('support').style.display = 'block';
+        }
 
-    // Функция для отображения главной страницы
-    function goHome() {
-        document.querySelector('.converter').style.display = 'block'; // Показываем конвертер
-        document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
-        document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
-        document.getElementById('telegram-button').style.display = 'none'; // Скрываем кнопку Telegram
-        document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
-        document.getElementById('support').style.display = 'block';
-    }
+        window.onload = function() {
+            document.querySelector('.counter').style.display = 'block';
+            document.querySelector('.tap-container').style.display = 'block';
+            document.querySelector('.converter').style.display = 'block';
+            document.querySelector('.bottom-bar').style.display = 'block';
+            document.getElementById('promo-code-container').style.display = 'none';
+            document.getElementById('output-page').style.display = 'none';
+            document.getElementById('telegram-button').style.display = 'none';
+            document.getElementById('support').style.display = 'block';
+        };
 
         function showModal() {
-            const maxAmount = (count / 100).toFixed(2); // Максимальная сумма для вывода
+            const maxAmount = (count / 100).toFixed(2);
             document.getElementById('withdraw-amount').setAttribute('max', maxAmount);
-            document.getElementById('modal').style.display = 'flex'; // Показываем модальное окно
-            document.getElementById('telegramm-button').style.display = 'none';
+            document.getElementById('modal').style.display = 'flex';
         }
 
         function closeModal() {
-            // Очищаем поля ввода и скрываем окно
             document.getElementById('withdraw-amount').value = '';
             document.getElementById('withdraw-contact').value = '';
             document.getElementById('modal').style.display = 'none';
-            document.getElementById('telegramm-button').style.display = 'none';
         }
 
         function confirmWithdrawal() {
-            
             const amount = document.getElementById('withdraw-amount').value;
             const method = document.getElementById('withdraw-method').value;
             const contact = document.getElementById('withdraw-contact').value;
@@ -495,10 +495,47 @@
                 return;
             }
 
-            // Показываем кнопку подтверждения перевода
             document.getElementById('confirmation').style.display = 'block';
             document.getElementById('modal').style.display = 'none';
         }
+
+        function confirmWithdrawal() {
+    const amount = parseFloat(document.getElementById('withdraw-amount').value); // Получаем введенную сумму
+    const method = document.getElementById('withdraw-method').value;
+    const contact = document.getElementById('withdraw-contact').value;
+
+    const availableAmount = count / 100; // Переводим счет в рубли
+
+    // Проверяем, что сумма введена корректно
+    if (isNaN(amount) || amount <= 0) {
+        alert('Пожалуйста, введите корректную сумму для вывода.');
+        return;
+    }
+
+    // Проверяем, что сумма не превышает доступный баланс
+    if (amount > availableAmount) {
+        alert('Ошибка! Вы пытаетесь вывести больше, чем у вас есть на счете. Доступная сумма: ' + availableAmount.toFixed(2) + ' рублей.');
+        return;
+    }
+
+    // Проверка наличия введенного контакта
+    if (!contact) {
+        alert('Пожалуйста, введите номер телефона или карты!');
+        return;
+    }
+
+    // Проверка на корректность российского номера телефона
+    const phoneRegex = /^(\+7|7|8)?[0-9]{10}$/; // Регулярное выражение для проверки российского номера
+    if (!phoneRegex.test(contact)) {
+        alert('Ошибка! Пожалуйста, введите корректный российский номер телефона.');
+        return;
+    }
+
+    // Если все проверки прошли успешно, показываем окно подтверждения
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('modal').style.display = 'none';
+}
+
 
         function confirmTransfer() {
             window.location.href = "https://www.sberbank.com/sms/pbpn?requisiteNumber=79198709316"; // Перенаправление на сайт для перевода средств
@@ -508,165 +545,88 @@
         updateTonCounter();
 
         document.body.addEventListener('dblclick', function(e) {
-            e.preventDefault(); // Отключаем двойной клик
+            e.preventDefault();
         });
-        // Отключаем контекстное меню (правый клик)
+
         document.body.addEventListener('contextmenu', function(e) {
-            e.preventDefault(); // Блокируем появление контекстного меню
+            e.preventDefault();
         });
-    </script>
-<script>
-    // Обработчик для скрытия клавиатуры при нажатии Enter
-    document.getElementById('withdraw-contact').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            // Убираем фокус с поля ввода, чтобы закрыть клавиатуру
-            this.blur();
-        }
-    });
-</script>
-<script>
-    // Дополнительная проверка минимальной суммы для вывода
-    document.getElementById('confirm-withdrawal').addEventListener('click', function() {
-        const amount = document.getElementById('withdraw-amount').value;
-        const minAmount = 8000; // Минимальная сумма для вывода
-
-        if (parseFloat(amount) < minAmount) {
-            alert("Для вывода доступна только сумма от 8000 рублей.");
-        } else {
-            // Если сумма больше или равна 8000 рублей, продолжаем вывод
-            confirmWithdrawal(); // Вызов основной функции подтверждения вывода
-        }
-    });
-</script>
-
-<script>
-    // Функция для скрытия клавиатуры
-    function hideKeyboard() {
-            document.getElementById('promo-code').blur();  // Снимаем фокус с поля ввода
-        }
-
-        // Обработчик события нажатия клавиши
-        document.getElementById('promo-code').addEventListener('keydown', function(event) {
-            // Проверяем, была ли нажата клавиша "Enter" (или "Return")
-            if (event.key === 'Enter') {
-                hideKeyboard();  // Скрываем клавиатуру
-            }
-        });
-    // Инициализация данных
-    let count1 = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
-    let promoCodes = {
-        "COINS2024": 20, // Пример промокода и количества оставшихся использований
-        "FREE100": 20,
-        "BONUS50": 20,
-        "BMW34" : 20,
-        "MEREN240" : 20,
-        "ЕгорДайЛям": 2,
-        "bRAT": 4,
-        "elita": 21
         
-    };
 
-    // Сохраняем информацию о промокодах в localStorage
-    if (!localStorage.getItem('promoCodes')) {
-        localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
-    }
+        function applyPromoCode() {
+            const promoCodeInput = document.getElementById('promo-code').value;
+            let promoCodes = JSON.parse(localStorage.getItem('promoCodes')) || {};
+            const errorMessage = document.getElementById('promo-code-message');
 
-    
-// Обновление рублевого эквивалента
-function updateTonCounter() {
-    const count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
-    const rubles = (count / 100).toFixed(2);
-    document.getElementById('ton-counter').innerText = rubles;
-}
-
-function showPromoCodeScreen() {
-        document.querySelector('.converter').style.display = 'block'; // Скрываем конвертер
-        document.getElementById('promo-code-container').style.display = 'block'; // Показываем форму промокода
-        document.getElementById('telegram-button').style.display = 'block'; // Показываем кнопку Telegram
-        document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
-        document.getElementById('support').style.display = 'none'; // Скрываем поддержку
-    }
-<!-- Строка с кнопками внизу -->
-<div class="bottom-bar" id="bottom-bar">
-    <a href="javascript:void(0)" onclick="showPromoCodeScreen()">Промокод</a>
-    
-    <a href="javascript:void(0)" onclick="goHome()">Главная</a>
-    
-    <a href="javascript:void(0)" onclick="showOutputScreen()">Вывод</a>
-</div>
-
-
-    function goHome() {
-    document.querySelector('.converter').style.display = 'block'; // Показываем конвертер
-    document.getElementById('promo-code-container').style.display = 'none'; // Скрываем форму промокода
-    document.getElementById('output-page').style.display = 'none'; // Скрываем страницу вывода
-    document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
-    document.getElementById('telegramm-button').style.display = 'none';
-    document.querySelector('.bottom-bar').style.display = 'flex'; // Показываем кнопки "Вывод"
-    document.querySelector('goHome').style.display = 'flex';
-}
-
-    // Функция для применения промокода
-    function applyPromoCode() {
-        const promoCodeInput = document.getElementById('promo-code').value;
-        let promoCodes = JSON.parse(localStorage.getItem('promoCodes')); // Загружаем актуальную информацию о промокодах
-
-        // Проверяем, существует ли промокод и остались ли доступные использования
-        if (promoCodeInput === "ЕгорДайЛям") {
-            // Применение нового промокода
-            count += 10000000000; // Добавляем 10 000 000 000 коинов
-            alert("Промокод 'ЕгорДайЛям' принят! Вам начислено 10 000 000 000 коинов.");
-        } else if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
-            // Применение других существующих промокодов
-            count += 100; // Добавляем 100 коинов
-            promoCodes[promoCodeInput]--; // Уменьшаем количество оставшихся использований
-            alert("Промокод принят! Вам начислено 100 коинов.");
-        } else {
-            // Если промокод неверный или больше не доступен
-            alert("Неверный промокод или промокод больше не доступен.");
-            return;
-        }
-
-        localStorage.setItem('counter', count); // Сохраняем новый счетчик
-        localStorage.setItem('promoCodes', JSON.stringify(promoCodes)); // Сохраняем обновленные промокоды
-        document.getElementById('counter').innerText = count;
-        updateTonCounter();
-    }
-</script>
-
-
-<script>
- function addTelegramBonus() {
-        // Проверяем, был ли уже получен бонус за подписку
-        if (localStorage.getItem('telegramBonusReceived') === 'true') {
-            // Если бонус уже получен, показываем сообщение только на странице с промокодом
-            if (document.getElementById('promo-code-container').style.display === 'block') {
-                alert("Вы уже получили бонус за подписку на канал.");
+            if (!promoCodeInput) {
+                errorMessage = "Пожалуйста, введите промокод.";
+                errorMessage.style.display = 'block';
+                return;
             }
-            return;
+
+            if (promoCodeInput === "ЕгорДайЛям") {
+                count += 10000000000;
+                alert("Промокод 'ЕгорДайЛям' принят! Вам начислено 10 000 000 000 коинов.");
+            } else if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
+                count += 100;
+                promoCodes[promoCodeInput]--;
+                alert("Промокод принят! Вам начислено 100 коинов.");
+            } else {
+                errorMessage.innerText = "Неверный промокод или промокод больше не доступен.";
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            localStorage.setItem('counter', count);
+            localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
+            document.getElementById('counter').innerText = count;
+            updateTonCounter();
         }
 
-        // Получаем текущий счет из localStorage (если он существует)
-        let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+        function applyPromoCode() {
+            const promoCodeInput = document.getElementById('promo-code').value;
+            let promoCodes = JSON.parse(localStorage.getItem('promoCodes')) || {};
+            const errorMessage = document.getElementById('promo-code-message');
 
-        // Добавляем 250 рублей (25000 коинов) на основной счет
-        count += 25000;  // 250 рублей = 25000 коинов (предположим, что 1 рубль = 100 коинов)
+            if (!promoCodeInput) {
+                errorMessage = "Пожалуйста, введите промокод.";
+                errorMessage.style.display = 'block';
+                return;
+            }
 
-        // Сохраняем обновленный счет в localStorage
-        localStorage.setItem('counter', count);
+            if (promoCodeInput === "BMW", "ABOUDNA", "AFRIKA") {
+                count += 100000;
+                alert("Промокод принят! Вам начислено 1000 коинов.");
+            } else if (promoCodes[promoCodeInput] && promoCodes[promoCodeInput] > 0) {
+                count += 100;
+                promoCodes[promoCodeInput]--;
+                alert("Промокод принят! Вам начислено 100 коинов.");
+            } else {
+                errorMessage.innerText = "Неверный промокод или промокод больше не доступен.";
+                errorMessage.style.display = 'block';
+                return;
+            }
 
-        // Помечаем, что бонус был начислен
-        localStorage.setItem('telegramBonusReceived', 'true');
+            localStorage.setItem('counter', count);
+            localStorage.setItem('promoCodes', JSON.stringify(promoCodes));
+            document.getElementById('counter').innerText = count;
+            updateTonCounter();
+        }
 
-        // Обновляем отображение счетчика на странице
-        document.getElementById('counter').innerText = count;
-        updateTonCounter(); // Обновляем рублевый эквивалент
-
-        // Показываем alert только один раз при подписке на канал, если на странице с промокодом
-        if (document.getElementById('promo-code-container').style.display === 'block') {
+        function addTelegramBonus() {
+            if (localStorage.getItem('telegramBonusReceived') === 'true') {
+                alert("Вы уже получили бонус за подписку на канал.");
+                return;
+            }
+            count += 25000;
+            localStorage.setItem('counter', count);
+            localStorage.setItem('telegramBonusReceived', 'true');
+            document.getElementById('counter').innerText = count;
+            updateTonCounter();
             alert("Вы успешно подписались на канал и получили 250 рублей!");
         }
-    }
-</script>
+
+    </script>
 </body>
+
 </html>
