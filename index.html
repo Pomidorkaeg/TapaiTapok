@@ -627,6 +627,36 @@
         }
 
     </script>
-</body>
+<script>
+    window.onload = function() {
+        // Показываем изображение тапка, которое занимает половину экрана
+        const tapImage = document.createElement('img');
+        tapImage.src = "https://github.com/Pomidorkaeg/TapaiTapok/blob/main/kandinsky-download-1731936884798.png?raw=true";
+        tapImage.alt = "Тапок";
+        tapImage.style.position = "fixed";
+        tapImage.style.top = "0";
+        tapImage.style.left = "0";
+        tapImage.style.width = "100%";  // Ширина 100% для полного экрана
+        tapImage.style.height = "100%";  // Высота 50% экрана
+        tapImage.style.objectFit = "cover";  // изображение будет заполнять половину экрана, сохраняя пропорции
+        tapImage.style.zIndex = "9999";
+        document.body.appendChild(tapImage);
 
+        // Убираем изображение через 3 секунды
+        setTimeout(() => {
+            tapImage.style.display = 'none';
+        }, 3000);
+
+        // Восстановление остальной логики страницы
+        document.querySelector('.counter').style.display = 'block';
+        document.querySelector('.tap-container').style.display = 'block';
+        document.querySelector('.converter').style.display = 'block';
+        document.querySelector('.bottom-bar').style.display = 'block';
+        document.getElementById('promo-code-container').style.display = 'none';
+        document.getElementById('output-page').style.display = 'none';
+        document.getElementById('telegram-button').style.display = 'none';
+        document.getElementById('support').style.display = 'block';
+    };
+</script>
+</body>
 </html>
