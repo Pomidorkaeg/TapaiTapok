@@ -629,17 +629,18 @@
     </script>
 <script>
     window.onload = function() {
-        // Показываем изображение тапка, которое занимает половину экрана
+        // Показываем изображение тапка, которое занимает половину экрана и центрировано
         const tapImage = document.createElement('img');
         tapImage.src = "https://github.com/Pomidorkaeg/TapaiTapok/blob/main/kandinsky-download-1731936884798.png?raw=true";
         tapImage.alt = "Тапок";
         tapImage.style.position = "fixed";
-        tapImage.style.top = "0";
-        tapImage.style.left = "0";
-        tapImage.style.width = "100%";  // Ширина 100% для полного экрана
-        tapImage.style.height = "100%";  // Высота 50% экрана
-        tapImage.style.objectFit = "cover";  // изображение будет заполнять половину экрана, сохраняя пропорции
-        tapImage.style.zIndex = "9999";
+        tapImage.style.top = "50%";  // Центрируем изображение по вертикали
+        tapImage.style.left = "50%";  // Центрируем изображение по горизонтали
+        tapImage.style.transform = "translate(-50%, -50%)"; // Смещаем изображение на 50% для точного центрирования
+        tapImage.style.width = "50%";  // Ширина 100% экрана
+        tapImage.style.height = "90%";  // Высота 50% экрана
+        tapImage.style.objectFit = "cover";  // Сохраняет пропорции изображения
+        tapImage.style.zIndex = "9999"; // Убедитесь, что изображение поверх остальных элементов
         document.body.appendChild(tapImage);
 
         // Убираем изображение через 3 секунды
@@ -658,5 +659,6 @@
         document.getElementById('support').style.display = 'block';
     };
 </script>
+
 </body>
 </html>
