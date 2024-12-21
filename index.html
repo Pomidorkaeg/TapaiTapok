@@ -418,26 +418,7 @@
 
     <script>
 
-        // Генерация уникального идентификатора для каждого пользователя (если его нет)
-function getUserId() {
-    let userId = localStorage.getItem('userId');
-    if (!userId) {
-        // Генерируем уникальный идентификатор
-        userId = 'user_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('userId', userId);
-    }
-    return userId;
-}
-
-// Получаем уникальный идентификатор пользователя
-const userId = getUserId();
-
-// Загружаем счетчик для этого пользователя
-let counnt = parseInt(localStorage.getItem(userId + '_counter')) || 0;
-
-// Обновляем отображение счета
-document.getElementById('counter').innerText = counnt;
-updateTonCounter();
+        
 
         let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
