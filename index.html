@@ -367,16 +367,18 @@
     </div>
 <!-- Кнопка с иконкой Telegram -->
 <div id="telegram-button">
-    <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+    <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" id="telegram-subscribe-btn">  
         <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
     </a>
 </div>
 
-    <div class="support" id="support">
-        <a href="https://t.me/popipazm" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
-            <i class="fab fa-telegram-plane"></i> Поддержка
-        </a>
-    </div>
+<!-- Кнопка поддержки -->
+<div class="support" id="support">
+    <a href="https://t.me/popipazm" class="telegram-button" target="_blank">  
+        <i class="fab fa-telegram-plane"></i> Поддержка
+    </a>
+</div>
+
 
     <!-- Страница с выводом -->
     <div class="output-page" id="output-page" style="display:none;">
@@ -613,12 +615,12 @@
             updateTonCounter();
         }
 
-        function addTelegramBonus() {
+// Функция для обработки бонуса за подписку на канал
+function addTelegramBonus(event) {
     // Проверяем, получен ли уже бонус за подписку
     if (localStorage.getItem('telegramBonusReceived') === 'true') {
-        // Показать уведомление только если пользователь уже подписан
-        alert("Вы уже получили бонус за подписку на канал.");
-        return; // Выход, если бонус уже получен
+        // Если бонус уже получен, просто выходим
+        return; 
     }
     
     // Если бонус ещё не был получен, начисляем 250 коинов и помечаем, что пользователь подписан
@@ -634,10 +636,21 @@
     alert("Вы успешно подписались на канал и получили 250 рублей!");
 }
 
-// Привязка обработчиков событий должна быть только к кнопке с подпиской на канал,
-// чтобы другие кнопки не вызывали добавление бонуса.
+// Привязка обработчика события только для кнопки подписки на канал
+document.getElementById('telegram-subscribe-btn').addEventListener('click', addTelegramBonus);
 
-document.querySelector('.telegram-button').addEventListener('click', addTelegramBonus);
+// Функция для обработки кнопки "Поддержка" без вызова бонуса
+function goToSupport() {
+    // Просто перенаправляем пользователя на страницу поддержки
+    window.location.href = "https://t.me/popipazm";
+}
+
+// Привязываем обработчик для кнопки поддержки, чтобы не запускать бонус за подписку
+document.querySelector('.support a').addEventListener('click', function(event) {
+    event.preventDefault();  // Предотвращаем стандартное поведение ссылки
+    goToSupport();           // Переходим на канал поддержки
+});
+
 
     </script>
 <script>
