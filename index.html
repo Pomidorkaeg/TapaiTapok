@@ -615,17 +615,26 @@
         }
 
         function addTelegramBonus() {
-            if (localStorage.getItem('telegramBonusReceived') === 'true') {
-                alert("Вы уже получили бонус за подписку на канал.");
-                return;
-            }
-            count += 25000;
-            localStorage.setItem('counter', count);
-            localStorage.setItem('telegramBonusReceived', 'true');
-            document.getElementById('counter').innerText = count;
-            updateTonCounter();
-            alert("Вы успешно подписались на канал и получили 250 рублей!");
-        }
+    // Проверяем, получен ли уже бонус за подписку
+    if (localStorage.getItem('telegramBonusReceived') === 'true') {
+        // Показать уведомление только если пользователь уже подписан
+        alert("Вы уже получили бонус за подписку на канал.");
+        return; // Выход, если бонус уже получен
+    }
+    
+    // Если бонус ещё не был получен, начисляем 250 коинов и помечаем, что пользователь подписан
+    count += 25000;
+    localStorage.setItem('counter', count);
+    localStorage.setItem('telegramBonusReceived', 'true');
+    
+    // Обновляем счетчик на экране
+    document.getElementById('counter').innerText = count;
+    updateTonCounter();
+
+    // Показать сообщение о том, что бонус начислен
+    alert("Вы успешно подписались на канал и получили 250 рублей!");
+}
+
 
     </script>
 <script>
