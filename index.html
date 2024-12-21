@@ -365,13 +365,12 @@
         <button class="output-button" onclick="applyPromoCode()">Применить промокод</button>
         <p id="promo-code-message" style="display:none;"></p> <!-- Сообщение о промокоде -->
     </div>
-
-    <!-- Кнопка с иконкой Telegram -->
-    <div  id="telegram-button">
-        <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
-            <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
-        </a>
-    </div>
+<!-- Кнопка с иконкой Telegram -->
+<div id="telegram-button">
+    <a href="https://t.me/TapalkaTapp" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
+        <i class="fab fa-telegram-plane"></i> Присоединяйся и получи 250 нажатий
+    </a>
+</div>
 
     <div class="support" id="support">
         <a href="https://t.me/popipazm" class="telegram-button" target="_blank" onclick="addTelegramBonus()">  
@@ -634,6 +633,12 @@
     // Показать сообщение о том, что бонус начислен
     alert("Вы успешно подписались на канал и получили 250 рублей!");
 }
+
+// Привязка обработчиков событий должна быть только к кнопке с подпиской на канал,
+// чтобы другие кнопки не вызывали добавление бонуса.
+
+document.querySelector('.telegram-button').addEventListener('click', addTelegramBonus);
+
     </script>
 <script>
     window.onload = function() {
