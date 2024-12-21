@@ -417,24 +417,20 @@
     </div>
 
     <script>
-
-        
-
         let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
-// Функция для увеличения счета
-function incrementCounter() {
-    count++;
-    localStorage.setItem(userId + '_counter', count); // Сохраняем счет для этого пользователя
-    document.getElementById('counter').innerText = count;
-    updateTonCounter();
-}
+        function incrementCounter() {
+            count++; // увеличиваем счетчик
+            document.getElementById('counter').innerText = count;
+            localStorage.setItem('counter', count);
+            updateTonCounter();
+        }
 
-// Обновляем отображение в рублях
-function updateTonCounter() {
-    const rubles = (count / 100).toFixed(2);
-    document.getElementById('ton-counter').innerText = rubles;
-}
+        function updateTonCounter() {
+            const rubles = (count / 100).toFixed(2);
+            document.getElementById('ton-counter').innerText = rubles;
+            document.getElementById('output-ton-counter').innerText = rubles;
+        }
 
         function showOutputScreen() {
             document.querySelector('.converter').style.display = 'none';
