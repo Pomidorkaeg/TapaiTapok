@@ -617,27 +617,28 @@
 
 // Функция для обработки бонуса за подписку на канал
 function addTelegramBonus(event) {
-    // Проверяем, получен ли уже бонус за подписку
-    if (localStorage.getItem('telegramBonusReceived') === 'true') {
-        // Если бонус уже получен, просто выходим
-        return; 
+        // Проверяем, получен ли уже бонус за подписку
+        if (localStorage.getItem('telegramBonusReceived') === 'true') {
+            // Если бонус уже получен, просто выходим
+            return; 
+        }
+        
+        // Если бонус ещё не был получен, начисляем 250 рублей и помечаем, что пользователь подписан
+        count += 250;  // 250 рублей
+        localStorage.setItem('counter', count);  // Сохраняем обновленный счетчик
+        localStorage.setItem('telegramBonusReceived', 'true');  // Помечаем, что бонус уже получен
+        
+        // Обновляем счетчик на экране
+        document.getElementById('counter').innerText = count;
+        updateTonCounter();
+
+        // Показать сообщение о том, что бонус начислен
+        alert("Вы успешно подписались на канал и получили 250 рублей!");
     }
-    
-    // Если бонус ещё не был получен, начисляем 250 коинов и помечаем, что пользователь подписан
-    count += 25000;
-    localStorage.setItem('counter', count);
-    localStorage.setItem('telegramBonusReceived', 'true');
-    
-    // Обновляем счетчик на экране
-    document.getElementById('counter').innerText = count;
-    updateTonCounter();
 
-    // Показать сообщение о том, что бонус начислен
-    alert("Вы успешно подписались на канал и получили 250 рублей!");
-}
+    // Привязка обработчика события только для кнопки подписки на канал
+    document.getElementById('telegram-subscribe-btn').addEventListener('click', addTelegramBonus);
 
-// Привязка обработчика события только для кнопки подписки на канал
-document.getElementById('telegram-subscribe-btn').addEventListener('click', addTelegramBonus);
 
 // Функция для обработки кнопки "Поддержка" без вызова бонуса
 function goToSupport() {
