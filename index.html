@@ -417,20 +417,43 @@
     </div>
 
     <script>
+
+        // Генерация уникального идентификатора для каждого пользователя (если его нет)
+function getUserId() {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        // Генерируем уникальный идентификатор
+        userId = 'user_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('userId', userId);
+    }
+    return userId;
+}
+
+// Получаем уникальный идентификатор пользователя
+const userId = getUserId();
+
+// Загружаем счетчик для этого пользователя
+let counnt = parseInt(localStorage.getItem(userId + '_counter')) || 0;
+
+// Обновляем отображение счета
+document.getElementById('counter').innerText = counnt;
+updateTonCounter();
+
         let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
 
-        function incrementCounter() {
-            count++; // увеличиваем счетчик
-            document.getElementById('counter').innerText = count;
-            localStorage.setItem('counter', count);
-            updateTonCounter();
-        }
+// Функция для увеличения счета
+function incrementCounter() {
+    count++;
+    localStorage.setItem(userId + '_counter', count); // Сохраняем счет для этого пользователя
+    document.getElementById('counter').innerText = count;
+    updateTonCounter();
+}
 
-        function updateTonCounter() {
-            const rubles = (count / 100).toFixed(2);
-            document.getElementById('ton-counter').innerText = rubles;
-            document.getElementById('output-ton-counter').innerText = rubles;
-        }
+// Обновляем отображение в рублях
+function updateTonCounter() {
+    const rubles = (count / 100).toFixed(2);
+    document.getElementById('ton-counter').innerText = rubles;
+}
 
         function showOutputScreen() {
             document.querySelector('.converter').style.display = 'none';
